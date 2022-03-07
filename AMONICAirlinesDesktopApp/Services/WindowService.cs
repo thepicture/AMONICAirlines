@@ -17,6 +17,7 @@ namespace AMONICAirlinesDesktopApp.Services
             TViewModel viewModel = new TViewModel();
             viewModel.OnRequestClose += () => window.Close();
             window.Content = viewModel;
+            window.DataContext = viewModel;
             window.Icon = new BitmapImage(
                 new Uri($"pack://application:,,,"
                         + "/Resources/DS2017_TP09_color.png"));

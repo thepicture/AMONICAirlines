@@ -12,6 +12,7 @@ namespace AMONICAirlinesDesktopApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            DependencyService.Register<MessageBoxFeedbackService>();
             DependencyService.Register<WindowService>();
             DependencyService.Get<IWindowService>()
                 .ShowWindow<LoginViewModel>();

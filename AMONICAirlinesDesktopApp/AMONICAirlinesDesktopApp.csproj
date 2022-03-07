@@ -116,7 +116,9 @@
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\DependencyService.cs" />
+    <Compile Include="Services\IFeedbackService.cs" />
     <Compile Include="Services\IWindowService.cs" />
+    <Compile Include="Services\MessageBoxFeedbackService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

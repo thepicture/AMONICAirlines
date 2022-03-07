@@ -24,6 +24,13 @@
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
     </Style>
+    <Style TargetType="PasswordBox"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Setter Property="Width"
+                Value="auto" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
     <Style TargetType="Button"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="Width"

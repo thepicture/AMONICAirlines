@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMONICAirlinesDesktopApp.Services;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,6 +9,8 @@ namespace AMONICAirlinesDesktopApp.ViewModels
     {
         public string Title { get; set; }
         public bool IsBusy { get; set; }
+        public IFeedbackService FeedbackService =>
+            DependencyService.Get<IFeedbackService>();
         public event Action OnRequestClose;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -18,6 +21,18 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             PropertyChanged?
                 .Invoke(this,
                         new PropertyChangedEventArgs(nameof(propertyName)));
+        }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
         }
     }
 }
