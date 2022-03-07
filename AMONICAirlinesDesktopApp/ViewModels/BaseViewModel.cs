@@ -7,8 +7,14 @@ namespace AMONICAirlinesDesktopApp.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        private bool isBusy;
+
         public string Title { get; set; }
-        public bool IsBusy { get; set; }
+        public bool IsBusy
+        {
+            get => isBusy;
+            set => SetProperty(ref isBusy, value);
+        }
         public IFeedbackService FeedbackService =>
             DependencyService.Get<IFeedbackService>();
         public event Action OnRequestClose;

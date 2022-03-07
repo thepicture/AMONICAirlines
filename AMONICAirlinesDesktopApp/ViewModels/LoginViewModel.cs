@@ -1,10 +1,12 @@
 ﻿using AMONICAirlinesDesktopApp.Commands;
 using AMONICAirlinesDesktopApp.Models.Entities;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace AMONICAirlinesDesktopApp.ViewModels
 {
@@ -35,28 +37,66 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         /// </summary>
         private async void PerformLoginAsync(object commandParameter)
         {
-            await Task.Run(() =>
+            User user = await Task.Run(() =>
             {
                 using (BaseEntities context = new BaseEntities())
                 {
-                    var user = context.User.FirstOrDefault(u =>
+                    return context.User.FirstOrDefault(u =>
                     u.Email.ToLower()
                     == Email.ToLower());
-                    byte[] passwordHash = MD5
-                                    .Create()
-                                    .ComputeHash(
-                                        Encoding.Unicode
-                                        .GetBytes(Password + user?.Salt));
-                    if (Enumerable.SequenceEqual(user?.PasswordHash, passwordHash))
-                    {
-                        FeedbackService.Inform("Вы авторизованы");
-                    }
-                    else
-                    {
-                        FeedbackService.Warn("Неправильное имя пользователя или пароль");
-                    }
                 }
             });
+            byte[] passwordHash = MD5
+                            .Create()
+                            .ComputeHash(
+                                Encoding.Unicode
+                                .GetBytes(Password + user?.Salt));
+            if (user != null
+            && Enumerable.SequenceEqual(user.PasswordHash,
+                                         passwordHash))
+            {
+                incorrectLoginAttemps = 0;
+                FeedbackService.Inform("Вы авторизованы");
+            }
+            else
+            {
+                incorrectLoginAttemps++;
+                if (incorrectLoginAttemps > 3)
+                {
+                    PerformWaitBeforeNextLogin();
+                }
+                FeedbackService.Warn("Неправильное "
+                                     + "имя пользователя "
+                                     + "или пароль");
+            }
+        }
+
+        private TimeSpan awaitTime = TimeSpan.FromSeconds(10);
+        private TimeSpan currentTimeSpan;
+
+        /// <summary>
+        /// Устанавливает блокировку ввода на 10 секунд 
+        /// прежде, чем пользователь снова сможет зайти в систему.
+        /// </summary>
+        private void PerformWaitBeforeNextLogin()
+        {
+            CurrentTimeSpan = awaitTime;
+            DispatcherTimer timer = new DispatcherTimer(
+                DispatcherPriority.Render)
+            {
+                Interval = TimeSpan.FromSeconds(1),
+            };
+            timer.Tick += (s, e) =>
+            {
+                CurrentTimeSpan = CurrentTimeSpan.Subtract(timer.Interval);
+                if (CurrentTimeSpan == TimeSpan.Zero)
+                {
+                    timer.Stop();
+                    IsBusy = false;
+                }
+            };
+            IsBusy = true;
+            timer.Start();
         }
 
         private Command exitCommand;
@@ -94,11 +134,17 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         }
 
         private string password;
+        private int incorrectLoginAttemps;
 
         public string Password
         {
             get => password;
             set => SetProperty(ref password, value);
+        }
+        public TimeSpan CurrentTimeSpan
+        {
+            get => currentTimeSpan;
+            set => SetProperty(ref currentTimeSpan, value);
         }
     }
 }

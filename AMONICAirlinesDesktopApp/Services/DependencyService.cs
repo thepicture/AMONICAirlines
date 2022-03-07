@@ -9,7 +9,7 @@ namespace AMONICAirlinesDesktopApp.Services
     /// </summary>
     public static class DependencyService
     {
-        private static IDictionary<Type, object> dependencies
+        private static readonly IDictionary<Type, object> dependencies
             = new Dictionary<Type, object>();
         public static void Register<T>() where T : new()
         {

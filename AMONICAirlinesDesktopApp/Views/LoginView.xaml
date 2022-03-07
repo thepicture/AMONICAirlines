@@ -11,6 +11,19 @@
              Width="800"
              MinHeight="450"
              MinWidth="800">
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Setter Property="IsEnabled"
+                    Value="True" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsBusy}"
+                             Value="True">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180*" />
@@ -19,15 +32,36 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
         <Image Source="./../Resources/DS2017_TP09_color@4x.png"
                Grid.Column="1" />
-        <StackPanel Grid.Row="1">
+        <Label Content="{Binding CurrentTimeSpan}"
+               ContentStringFormat="До разблокировки интерфейса осталось {0:ss} сек."
+               Grid.Row="1"
+               Grid.Column="1"
+               HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label"
+                       BasedOn="{StaticResource {x:Type Label}}">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsBusy}"
+                                     Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <StackPanel Grid.Row="2">
             <Label Content="Username:" />
             <Label Content="Password:" />
         </StackPanel>
-        <StackPanel Grid.Row="1"
+        <StackPanel Grid.Row="2"
                     Grid.Column="1">
             <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
             <PasswordBox PasswordChanged="OnPasswordChanged" />
