@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewmodels="clr-namespace:AMONICAirlinesDesktopApp.ViewModels"
+                    xmlns:views="clr-namespace:AMONICAirlinesDesktopApp.Views">
+    <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+        <views:LoginView/>
+    </DataTemplate>
+</ResourceDictionary>
