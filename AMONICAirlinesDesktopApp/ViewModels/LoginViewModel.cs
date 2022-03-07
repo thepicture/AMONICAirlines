@@ -55,6 +55,14 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             && Enumerable.SequenceEqual(user.PasswordHash,
                                          passwordHash))
             {
+                if (user.Active != null && (bool)!user.Active)
+                {
+                    string reason = user.InactiveReason ?? "неизвестна";
+                    FeedbackService.Warn("Вход невозможен. " +
+                        "Руководство заблокировало ваш аккаунт. Причина: " +
+                        $"{reason}");
+                    return;
+                }
                 incorrectLoginAttemps = 0;
                 FeedbackService.Inform("Вы авторизованы");
             }
