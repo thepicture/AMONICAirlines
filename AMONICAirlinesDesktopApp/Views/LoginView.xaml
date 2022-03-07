@@ -4,11 +4,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:AMONICAirlinesDesktopApp"
+             xmlns:viewmodels="clr-namespace:AMONICAirlinesDesktopApp.ViewModels"
              mc:Ignorable="d"
              Height="450"
              Width="800"
              MinHeight="450"
-             MinWidth="800">
+             MinWidth="800"
+             DataContext="{x:Type viewmodels:LoginViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180*" />
@@ -27,8 +29,8 @@
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="1">
-            <TextBox />
-            <TextBox />
+            <TextBox Text="{Binding Email}" />
+            <PasswordBox PasswordChanged="OnPasswordChanged" />
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <Button Content="Login" />

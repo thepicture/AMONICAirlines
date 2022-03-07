@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace AMONICAirlinesDesktopApp.Views
 {
@@ -10,6 +11,15 @@ namespace AMONICAirlinesDesktopApp.Views
         public LoginView()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Вызывается в момент изменения пароля.
+        /// </summary>
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((dynamic)(sender as PasswordBox).DataContext).SecurePassword
+                = (sender as PasswordBox).Password;
         }
     }
 }
