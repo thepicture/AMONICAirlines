@@ -8,6 +8,14 @@
         <Setter Property="Height"
                 Value="30" />
     </Style>
+    <Style TargetType="Window">
+        <Setter Property="Icon"
+                Value="pack://application:,,,/Resources/DS2017_TP09_color.png" />
+        <Setter Property="MinWidth"
+                Value="800" />
+        <Setter Property="MinHeight"
+                Value="550" />
+    </Style>
     <Style TargetType="Label"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="HorizontalContentAlignment"
