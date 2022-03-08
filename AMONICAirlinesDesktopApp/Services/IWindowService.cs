@@ -17,7 +17,7 @@ namespace AMONICAirlinesDesktopApp.Services
         /// Представляет модальное окно для модели представления.
         /// </summary>
         /// <typeparam name="TViewModel">Модель представления.</typeparam>
-        void ShowModalWindow<TViewModel>() 
+        void ShowModalWindow<TViewModel>()
             where TViewModel : BaseViewModel, new();
     }
 }

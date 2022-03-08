@@ -1,8 +1,11 @@
-﻿using AMONICAirlinesDesktopApp.Models.Entities;
+﻿using AMONICAirlinesDesktopApp.Commands;
+using AMONICAirlinesDesktopApp.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AMONICAirlinesDesktopApp.ViewModels
 {
@@ -11,16 +14,6 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         public AdministratorMainMenuViewModel()
         {
             Title = "AMONIC Airlines Automation System";
-            Users = Task.Run(() =>
-            {
-                using (BaseEntities context = new BaseEntities())
-                {
-                    return context.User
-                    .Include(u => u.Role)
-                    .Include(u => u.Office)
-                    .ToList();
-                }
-            }).Result;
             var offices = Task.Run(() =>
             {
                 using (BaseEntities context = new BaseEntities())
@@ -35,6 +28,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                                Title = "All offices"
                            });
             Offices = offices;
+            CurrentOffice = Offices.FirstOrDefault();
         }
 
         private IEnumerable<User> users;
@@ -51,6 +45,114 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         {
             get => offices;
             set => SetProperty(ref offices, value);
+        }
+
+        private Office currentOffice;
+
+        public Office CurrentOffice
+        {
+            get => currentOffice;
+            set
+            {
+                SetProperty(ref currentOffice, value);
+                Users = GetUsers();
+            }
+        }
+
+        /// <summary>
+        /// Получает пользователей из базы данных.
+        /// </summary>
+        /// <returns>Пользователи.</returns>
+        private IEnumerable<User> GetUsers()
+        {
+            IEnumerable<User> currentUsers = App.Current.Dispatcher.Invoke(() =>
+            {
+                using (BaseEntities context = new BaseEntities())
+                {
+                    return context.User
+                    .Include(u => u.Role)
+                    .Include(u => u.Office)
+                    .ToList();
+                }
+            });
+            if (CurrentOffice?.Title != "All offices")
+            {
+                currentUsers = currentUsers
+                    .Where(u => u.OfficeID == CurrentOffice.ID)
+                    .ToList();
+            }
+            return currentUsers;
+        }
+
+        private User selectedUser;
+
+        public User SelectedUser
+        {
+            get => selectedUser;
+            set => SetProperty(ref selectedUser, value);
+        }
+
+        private Command exitCommand;
+
+        public ICommand ExitCommand
+        {
+            get
+            {
+                if (exitCommand == null)
+                {
+                    exitCommand = new Command(Exit);
+                }
+
+                return exitCommand;
+            }
+        }
+
+        private void Exit(object commandParameter)
+        {
+            if (FeedbackService.Ask("Завершить сессию?"))
+            {
+                var activity = (App.Current as App).Activity;
+                using (BaseEntities context = new BaseEntities())
+                {
+                    context.UserActivity
+                        .Find(activity.ID)
+                        .LogoutDateTime = DateTime.Now;
+                    context.SaveChanges();
+                }
+                CloseAction();
+                WindowService.ShowWindow<LoginViewModel>();
+            }
+        }
+
+        private Command toggleActivityCommand;
+
+        public ICommand ToggleActivityCommand
+        {
+            get
+            {
+                if (toggleActivityCommand == null)
+                {
+                    toggleActivityCommand =
+                        new Command(ToggleActivity,
+                                    (obj) => SelectedUser != null);
+                }
+
+                return toggleActivityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Блокирует или разблокирует активность пользователя.
+        /// </summary>
+        private void ToggleActivity(object commandParameter)
+        {
+            using (BaseEntities context = new BaseEntities())
+            {
+                context.User.Find(SelectedUser.ID).Active =
+                    !context.User.Find(SelectedUser.ID).Active;
+                context.SaveChanges();
+            }
+            Users = GetUsers();
         }
     }
 }

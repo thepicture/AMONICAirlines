@@ -6,17 +6,20 @@ namespace AMONICAirlinesDesktopApp.Services
 {
     public class WindowService : IWindowService
     {
-        public void ShowModalWindow<TViewModel>() where TViewModel : BaseViewModel, new()
+        public void ShowModalWindow<TViewModel>()
+            where TViewModel : BaseViewModel, new()
         {
             Window window = new Window
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
-            TViewModel viewModel = new TViewModel();
+            TViewModel viewModel = new TViewModel
+            {
+                CloseAction = new Action(window.Close)
+            };
             window.Content = viewModel;
             window.DataContext = viewModel;
             window.Title = viewModel.Title;
-            viewModel.CloseAction = new Action(window.Close);
             _ = window.ShowDialog();
         }
 
@@ -27,8 +30,10 @@ namespace AMONICAirlinesDesktopApp.Services
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
-            TViewModel viewModel = new TViewModel();
-            viewModel.CloseAction = new Action(window.Hide);
+            TViewModel viewModel = new TViewModel
+            {
+                CloseAction = new Action(window.Hide)
+            };
             window.Content = viewModel;
             window.DataContext = viewModel;
             window.Title = viewModel.Title;

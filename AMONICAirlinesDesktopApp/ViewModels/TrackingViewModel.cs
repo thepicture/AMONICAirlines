@@ -11,7 +11,6 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         public TrackingViewModel()
         {
             Title = "No logout detected";
-            User user = (App.Current as App).User;
             LastLogin = (App.Current as App).Activity.LoginDateTime;
         }
 

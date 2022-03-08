@@ -18,7 +18,8 @@
         <Menu BorderBrush="Black"
               BorderThickness="1">
             <MenuItem Header="Add user" />
-            <MenuItem Header="Exit" />
+            <MenuItem Header="Exit"
+                      Command="{Binding ExitCommand}"/>
         </Menu>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -28,12 +29,15 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="Office:" />
                 <ComboBox ItemsSource="{Binding Offices}"
+                          SelectedItem="{Binding CurrentOffice}"
                           DisplayMemberPath="Title"
                           SelectedIndex="0" />
             </StackPanel>
             <DataGrid Grid.Row="1"
                       ItemsSource="{Binding Users}"
-                      ColumnWidth="*">
+                      ColumnWidth="*"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedUser}">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
@@ -51,16 +55,16 @@
                     <DataGridTextColumn Header="Name"
                                         Binding="{Binding FirstName}" />
                     <DataGridTextColumn Header="Last Name"
-                                        Binding="{Binding LastName}"/>
+                                        Binding="{Binding LastName}" />
                     <DataGridTextColumn Header="Age"
                                         Binding="{Binding Age}"
                                         Width="auto" />
-                    <DataGridTextColumn Header="User Role" 
-                                        Binding="{Binding Role.Title}"/>
-                    <DataGridTextColumn Header="Email Address" 
-                                        Binding="{Binding Email}"/>
-                    <DataGridTextColumn Header="Office" 
-                                        Binding="{Binding Office.Title}"/>
+                    <DataGridTextColumn Header="User Role"
+                                        Binding="{Binding Role.Title}" />
+                    <DataGridTextColumn Header="Email Address"
+                                        Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Office"
+                                        Binding="{Binding Office.Title}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -68,7 +72,8 @@
                     VerticalAlignment="Center"
                     Grid.Row="2">
             <Button Content="Change Role" />
-            <Button Content="Enable/Disable Login" />
+            <Button Content="Enable/Disable Login" 
+                    Command="{Binding ToggleActivityCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

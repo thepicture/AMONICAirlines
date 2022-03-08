@@ -80,9 +80,9 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                 });
                 if (lastActivity != null)
                 {
+                    (App.Current as App).Activity = lastActivity;
                     if (lastActivity.LogoutDateTime == null)
                     {
-                        (App.Current as App).Activity = lastActivity;
                         WindowService.ShowModalWindow<TrackingViewModel>();
                     }
                 }
@@ -91,6 +91,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                     LoginDateTime = DateTime.Now,
                     UserID = user.ID,
                 };
+                (App.Current as App).Activity = newActivity;
                 await Task.Run(() =>
                 {
                     using (BaseEntities context = new BaseEntities())
