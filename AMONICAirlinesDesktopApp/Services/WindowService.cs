@@ -28,7 +28,7 @@ namespace AMONICAirlinesDesktopApp.Services
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
             TViewModel viewModel = new TViewModel();
-            viewModel.CloseAction = new Action(window.Close);
+            viewModel.CloseAction = new Action(window.Hide);
             window.Content = viewModel;
             window.DataContext = viewModel;
             window.Title = viewModel.Title;

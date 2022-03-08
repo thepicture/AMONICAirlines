@@ -44,6 +44,22 @@
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
     </Style>
+    <Style TargetType="ComboBox"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+    <Style TargetType="DataGrid"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Setter Property="Width"
+                Value="auto" />
+        <Setter Property="Height"
+                Value="auto" />
+        <Setter Property="AutoGenerateColumns"
+                Value="False" />
+        <Setter Property="IsReadOnly"
+                Value="True" />
+    </Style>
     <Style TargetType="Button"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="Width"

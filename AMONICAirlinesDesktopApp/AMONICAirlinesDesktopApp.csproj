@@ -65,6 +65,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Entities\PartialUser.cs" />
+    <Compile Include="ViewModels\AdministratorMainMenuViewModel.cs" />
+    <Compile Include="Views\AdministratorMainMenuView.xaml.cs">
+      <DependentUpon>AdministratorMainMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
     </Compile>
@@ -73,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\ViewTemplatesDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdministratorMainMenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

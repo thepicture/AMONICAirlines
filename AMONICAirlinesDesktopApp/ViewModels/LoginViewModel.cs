@@ -1,6 +1,7 @@
 ﻿using AMONICAirlinesDesktopApp.Commands;
 using AMONICAirlinesDesktopApp.Models.Entities;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -41,7 +42,9 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             {
                 using (BaseEntities context = new BaseEntities())
                 {
-                    return context.User.FirstOrDefault(u =>
+                    return context.User
+                    .Include(u => u.Role)
+                    .FirstOrDefault(u =>
                     u.Email.ToLower()
                     == Email.ToLower());
                 }
@@ -97,6 +100,18 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                     }
                 });
                 FeedbackService.Inform("Вы авторизованы");
+                switch (user.Role.Title)
+                {
+                    case "Administrator":
+                        CloseAction();
+                        WindowService
+                            .ShowWindow<AdministratorMainMenuViewModel>();
+                        break;
+                    case "User":
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {

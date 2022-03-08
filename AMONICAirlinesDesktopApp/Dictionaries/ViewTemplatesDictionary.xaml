@@ -8,4 +8,7 @@
     <DataTemplate DataType="{x:Type viewmodels:TrackingViewModel}">
         <views:TrackingView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:AdministratorMainMenuViewModel}">
+        <views:AdministratorMainMenuView />
+    </DataTemplate>
 </ResourceDictionary>
