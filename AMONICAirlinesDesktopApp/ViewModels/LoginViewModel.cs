@@ -16,6 +16,9 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         public LoginViewModel()
         {
             Title = "Login";
+
+            Email = "j.doe@amonic.com";
+            Password = "123";
         }
 
         private Command loginCommand;

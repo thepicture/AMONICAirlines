@@ -18,6 +18,7 @@ namespace AMONICAirlinesDesktopApp.Views
         /// </summary>
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
+            if (DataContext == null) return;
             ((dynamic)DataContext)
                 .Password = (sender as PasswordBox).Password;
         }

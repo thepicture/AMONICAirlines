@@ -63,8 +63,9 @@
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Grid.Column="1">
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
-            <PasswordBox PasswordChanged="OnPasswordChanged" />
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, TargetNullValue=j.doe@amonic.com}"/>
+            <PasswordBox PasswordChanged="OnPasswordChanged" Password="123"/>
+
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <Button Content="Login"
