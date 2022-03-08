@@ -5,4 +5,7 @@
     <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
         <views:LoginView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:TrackingViewModel}">
+        <views:TrackingView />
+    </DataTemplate>
 </ResourceDictionary>

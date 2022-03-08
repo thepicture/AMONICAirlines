@@ -1,4 +1,5 @@
-﻿using AMONICAirlinesDesktopApp.Services;
+﻿using AMONICAirlinesDesktopApp.Models.Entities;
+using AMONICAirlinesDesktopApp.Services;
 using AMONICAirlinesDesktopApp.ViewModels;
 using System.Windows;
 
@@ -9,6 +10,7 @@ namespace AMONICAirlinesDesktopApp
     /// </summary>
     public partial class App : Application
     {
+        public UserActivity Activity { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

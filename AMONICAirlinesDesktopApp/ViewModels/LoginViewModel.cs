@@ -64,6 +64,37 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                     return;
                 }
                 incorrectLoginAttemps = 0;
+                var lastActivity = await Task.Run(() =>
+                {
+                    using (BaseEntities context = new BaseEntities())
+                    {
+                        return context.UserActivity
+                        .Where(u => u.UserID == user.ID)
+                        .ToList()
+                        .LastOrDefault();
+                    }
+                });
+                if (lastActivity != null)
+                {
+                    if (lastActivity.LogoutDateTime == null)
+                    {
+                        WindowService.ShowModalWindow<TrackingViewModel>();
+                    }
+                }
+                var newActivity = new UserActivity
+                {
+                    LoginDateTime = DateTime.Now,
+                    UserID = user.ID,
+                };
+                await Task.Run(() =>
+                {
+                    using (BaseEntities context = new BaseEntities())
+                    {
+                        (App.Current as App).Activity =
+                        context.UserActivity.Add(newActivity);
+                        _ = context.SaveChanges();
+                    }
+                });
                 FeedbackService.Inform("Вы авторизованы");
             }
             else

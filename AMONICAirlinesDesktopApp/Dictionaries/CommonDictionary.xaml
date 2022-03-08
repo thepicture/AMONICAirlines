@@ -17,6 +17,11 @@
         <Setter Property="Width"
                 Value="auto" />
     </Style>
+    <Style TargetType="RadioButton"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
     <Style TargetType="TextBox"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="Width"

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="ID" />
@@ -56,7 +56,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LoginDateTime" Type="datetime" Nullable="false" />
           <Property Name="LogoutDateTime" Type="datetime" />
           <Property Name="UserID" Type="int" Nullable="false" />
@@ -151,26 +151,53 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Country" EntityType="BaseModel.Country" />
+          <EntitySet Name="CrashType" EntityType="BaseModel.CrashType" />
+          <EntitySet Name="Office" EntityType="BaseModel.Office" />
+          <EntitySet Name="Role" EntityType="BaseModel.Role" />
+          <EntitySet Name="User" EntityType="BaseModel.User" />
+          <EntitySet Name="UserActivity" EntityType="BaseModel.UserActivity" />
+          <AssociationSet Name="FK_Office_Country" Association="BaseModel.FK_Office_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Office" EntitySet="Office" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_CrashType" Association="BaseModel.FK_UserActivity_CrashType">
+            <End Role="CrashType" EntitySet="CrashType" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Offices" Association="BaseModel.FK_Users_Offices">
+            <End Role="Office" EntitySet="Office" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="BaseModel.FK_Users_Roles">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActivity_User" Association="BaseModel.FK_UserActivity_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserActivity" EntitySet="UserActivity" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Office" Relationship="Self.FK_Office_Country" FromRole="Country" ToRole="Office" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Office" Relationship="BaseModel.FK_Office_Country" FromRole="Country" ToRole="Office" />
         </EntityType>
         <EntityType Name="CrashType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserActivity" Relationship="Self.FK_UserActivity_CrashType" FromRole="CrashType" ToRole="UserActivity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserActivity" Relationship="BaseModel.FK_UserActivity_CrashType" FromRole="CrashType" ToRole="UserActivity" />
         </EntityType>
         <EntityType Name="Office">
           <Key>
@@ -178,19 +205,19 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Contact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Country" Relationship="Self.FK_Office_Country" FromRole="Office" ToRole="Country" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Users_Offices" FromRole="Office" ToRole="User" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Country" Relationship="BaseModel.FK_Office_Country" FromRole="Office" ToRole="Country" />
+          <NavigationProperty Name="User" Relationship="BaseModel.FK_Users_Offices" FromRole="Office" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Users_Roles" FromRole="Role" ToRole="User" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="BaseModel.FK_Users_Roles" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -198,35 +225,35 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="PasswordHash" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OfficeID" Type="Int32" />
           <Property Name="Birthdate" Type="DateTime" Precision="0" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="InactiveReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Office" Relationship="Self.FK_Users_Offices" FromRole="User" ToRole="Office" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="UserActivity" Relationship="Self.FK_UserActivity_User" FromRole="User" ToRole="UserActivity" />
+          <NavigationProperty Name="Office" Relationship="BaseModel.FK_Users_Offices" FromRole="User" ToRole="Office" />
+          <NavigationProperty Name="Role" Relationship="BaseModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserActivity" Relationship="BaseModel.FK_UserActivity_User" FromRole="User" ToRole="UserActivity" />
         </EntityType>
         <EntityType Name="UserActivity">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LoginDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LogoutDateTime" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CrashTypeID" Type="Int32" />
-          <NavigationProperty Name="CrashType" Relationship="Self.FK_UserActivity_CrashType" FromRole="UserActivity" ToRole="CrashType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserActivity_User" FromRole="UserActivity" ToRole="User" />
+          <NavigationProperty Name="CrashType" Relationship="BaseModel.FK_UserActivity_CrashType" FromRole="UserActivity" ToRole="CrashType" />
+          <NavigationProperty Name="User" Relationship="BaseModel.FK_UserActivity_User" FromRole="UserActivity" ToRole="User" />
         </EntityType>
         <Association Name="FK_Office_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="1" />
-          <End Role="Office" Type="Self.Office" Multiplicity="*" />
+          <End Type="BaseModel.Country" Role="Country" Multiplicity="1" />
+          <End Type="BaseModel.Office" Role="Office" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Country">
               <PropertyRef Name="ID" />
@@ -237,8 +264,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserActivity_CrashType">
-          <End Role="CrashType" Type="Self.CrashType" Multiplicity="0..1" />
-          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <End Type="BaseModel.CrashType" Role="CrashType" Multiplicity="0..1" />
+          <End Type="BaseModel.UserActivity" Role="UserActivity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CrashType">
               <PropertyRef Name="ID" />
@@ -249,8 +276,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Offices">
-          <End Role="Office" Type="Self.Office" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="BaseModel.Office" Role="Office" Multiplicity="0..1" />
+          <End Type="BaseModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Office">
               <PropertyRef Name="ID" />
@@ -261,8 +288,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Roles">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="BaseModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="BaseModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="ID" />
@@ -273,8 +300,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserActivity_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserActivity" Type="Self.UserActivity" Multiplicity="*" />
+          <End Type="BaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="BaseModel.UserActivity" Role="UserActivity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="ID" />
@@ -284,35 +311,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Country" EntityType="Self.Country" />
-          <EntitySet Name="CrashType" EntityType="Self.CrashType" />
-          <EntitySet Name="Office" EntityType="Self.Office" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="UserActivity" EntityType="Self.UserActivity" />
-          <AssociationSet Name="FK_Office_Country" Association="Self.FK_Office_Country">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="Office" EntitySet="Office" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserActivity_CrashType" Association="Self.FK_UserActivity_CrashType">
-            <End Role="CrashType" EntitySet="CrashType" />
-            <End Role="UserActivity" EntitySet="UserActivity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Offices" Association="Self.FK_Users_Offices">
-            <End Role="Office" EntitySet="Office" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserActivity_User" Association="Self.FK_UserActivity_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserActivity" EntitySet="UserActivity" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -321,64 +320,64 @@
           <EntitySetMapping Name="Country">
             <EntityTypeMapping TypeName="BaseModel.Country">
               <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CrashType">
             <EntityTypeMapping TypeName="BaseModel.CrashType">
               <MappingFragment StoreEntitySet="CrashType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Office">
             <EntityTypeMapping TypeName="BaseModel.Office">
               <MappingFragment StoreEntitySet="Office">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="BaseModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="BaseModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="Salt" ColumnName="Salt" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
-                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="InactiveReason" ColumnName="InactiveReason" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserActivity">
             <EntityTypeMapping TypeName="BaseModel.UserActivity">
               <MappingFragment StoreEntitySet="UserActivity">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LoginDateTime" ColumnName="LoginDateTime" />
-                <ScalarProperty Name="LogoutDateTime" ColumnName="LogoutDateTime" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="CrashTypeID" ColumnName="CrashTypeID" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LogoutDateTime" ColumnName="LogoutDateTime" />
+                <ScalarProperty Name="LoginDateTime" ColumnName="LoginDateTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
