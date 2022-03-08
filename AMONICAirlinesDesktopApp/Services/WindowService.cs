@@ -1,4 +1,5 @@
 ﻿using AMONICAirlinesDesktopApp.ViewModels;
+using System;
 using System.Windows;
 
 namespace AMONICAirlinesDesktopApp.Services
@@ -15,7 +16,7 @@ namespace AMONICAirlinesDesktopApp.Services
             window.Content = viewModel;
             window.DataContext = viewModel;
             window.Title = viewModel.Title;
-            viewModel.OnRequestClose += () => window.Close();
+            viewModel.CloseAction = new Action(window.Close);
             _ = window.ShowDialog();
         }
 
@@ -27,7 +28,7 @@ namespace AMONICAirlinesDesktopApp.Services
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
             };
             TViewModel viewModel = new TViewModel();
-            viewModel.OnRequestClose += () => window.Close();
+            viewModel.CloseAction = new Action(window.Close);
             window.Content = viewModel;
             window.DataContext = viewModel;
             window.Title = viewModel.Title;

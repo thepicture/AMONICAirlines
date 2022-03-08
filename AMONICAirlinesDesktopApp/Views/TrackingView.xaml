@@ -31,16 +31,20 @@
             <Label Content="Reason:"
                    HorizontalAlignment="Left" />
             <TextBox Grid.Row="1"
-                     Height="auto" />
+                     Height="auto" 
+                     Text="{Binding Reason}"/>
         </Grid>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <RadioButton GroupName="CrashType"
+                         IsChecked="{Binding SoftwareCrash}"
                          Content="Software Crash" />
             <RadioButton GroupName="CrashType"
+                         IsChecked="{Binding SystemCrash}"
                          Content="System Crash" />
-            <Button Content="Confirm" />
+            <Button Content="Confirm"
+                    Command="{Binding ConfirmCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -63,6 +63,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                         $"{reason}");
                     return;
                 }
+                (App.Current as App).User = user;
                 incorrectLoginAttemps = 0;
                 var lastActivity = await Task.Run(() =>
                 {
@@ -78,6 +79,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                 {
                     if (lastActivity.LogoutDateTime == null)
                     {
+                        (App.Current as App).Activity = lastActivity;
                         WindowService.ShowModalWindow<TrackingViewModel>();
                     }
                 }
@@ -90,8 +92,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                 {
                     using (BaseEntities context = new BaseEntities())
                     {
-                        (App.Current as App).Activity =
-                        context.UserActivity.Add(newActivity);
+                        _ = context.UserActivity.Add(newActivity);
                         _ = context.SaveChanges();
                     }
                 });

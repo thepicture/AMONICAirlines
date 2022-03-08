@@ -3,7 +3,7 @@
                     xmlns:viewmodels="clr-namespace:AMONICAirlinesDesktopApp.ViewModels"
                     xmlns:views="clr-namespace:AMONICAirlinesDesktopApp.Views">
     <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-        <views:LoginView/>
+        <views:LoginView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodels:TrackingViewModel}">
         <views:TrackingView />

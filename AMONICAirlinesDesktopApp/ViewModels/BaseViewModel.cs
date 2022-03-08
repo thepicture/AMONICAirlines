@@ -19,7 +19,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             DependencyService.Get<IFeedbackService>();
         public IWindowService WindowService =>
           DependencyService.Get<IWindowService>();
-        public event Action OnRequestClose;
+        public Action CloseAction { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

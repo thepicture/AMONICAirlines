@@ -11,6 +11,8 @@ namespace AMONICAirlinesDesktopApp
     public partial class App : Application
     {
         public UserActivity Activity { get; set; }
+        public User User { get; set; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
