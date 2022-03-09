@@ -16,50 +16,124 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Email address" />
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
-                     MaxLength="150"/>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Email address" />
+                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="150" 
+                         IsEnabled="{Binding IsInNotCreationMode}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="First name" />
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="50"
+                         IsEnabled="{Binding IsInNotCreationMode}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Last name" />
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="50"
+                         IsEnabled="{Binding IsInNotCreationMode}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Office" />
+                <ComboBox ItemsSource="{Binding Offices}"
+                          SelectedItem="{Binding CurrentOffice, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="Title"
+                          IsEnabled="{Binding IsInNotCreationMode}" />
+            </StackPanel>
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentUser.ID}"
+                                         Value="0">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Birthdate" />
+                    <DatePicker SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Password" />
+                    <PasswordBox PasswordChanged="OnPasswordChanged"
+                                 MaxLength="50" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility"
+                                Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentUser.ID}"
+                                         Value="0">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Role"
+                           VerticalAlignment="Top"/>
+                    <StackPanel>
+                        <RadioButton GroupName="RoleType"
+                                     Content="User"
+                                     IsChecked="{Binding UserRole}" />
+                        <RadioButton GroupName="RoleType"
+                                     Content="Administrator"
+                                     IsChecked="{Binding AdministratorRole}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Button Command="{Binding SaveUserCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="Content"
+                                    Value="Apply" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentUser.ID}"
+                                             Value="0">
+                                    <Setter Property="Content"
+                                            Value="Save" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}" />
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="First name" />
-            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="50"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Last name" />
-            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
-                     MaxLength="50"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Office" />
-            <ComboBox ItemsSource="{Binding Offices}"
-                      SelectedItem="{Binding CurrentOffice, UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="Title"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Birthdate" />
-            <DatePicker SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Password" />
-            <PasswordBox PasswordChanged="OnPasswordChanged"
-                         MaxLength="50"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            <Button Content="Save" 
-                    Command="{Binding SaveUserCommand}"/>
-            <Button Content="Cancel" 
-                    Command="{Binding CancelCommand}"/>
-        </StackPanel>
-    </StackPanel>
-            <Label Content="{Binding Errors, TargetNullValue=В текущий момент все заполнено верно\, сохранение разрешено}"
-                   Height="auto"
-                   Width="auto"
-                   Grid.Row="1"
-                   HorizontalContentAlignment="Center"/>
+        <Label Content="{Binding Errors, TargetNullValue=В текущий момент все заполнено верно\, сохранение разрешено}"
+               Height="auto"
+               Width="auto"
+               Grid.Row="1"
+               HorizontalContentAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentUser.ID}"
+                                     Value="0">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
     </Grid>
 </UserControl>

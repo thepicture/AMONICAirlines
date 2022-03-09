@@ -14,25 +14,33 @@ namespace AMONICAirlinesDesktopApp.ViewModels
 {
     public class AddUserViewModel : BaseViewModel
     {
+        public bool IsInNotCreationMode { get; set; }
         public AddUserViewModel(User user)
         {
             CurrentUser = user;
+            Offices = Task.Run(() =>
+            {
+                using (BaseEntities context = new BaseEntities())
+                {
+                    return context.Office.ToList();
+                }
+            }).Result;
             if (user.ID != 0)
             {
-
+                Title = "Edit role";
+                AdministratorRole = user.RoleID == 1;
+                UserRole = user.RoleID != 1;
+                Email = CurrentUser.Email;
+                FirstName = CurrentUser.FirstName;
+                LastName = CurrentUser.LastName;
+                CurrentOffice = Offices.First(o => o.ID == user.OfficeID);
             }
             else
             {
                 Title = "Add user";
-                Offices = Task.Run(() =>
-                {
-                    using (BaseEntities context = new BaseEntities())
-                    {
-                        return context.Office.ToList();
-                    }
-                }).Result;
+                IsInNotCreationMode = true;
+                CurrentOffice = Offices.FirstOrDefault();
             }
-            CurrentOffice = Offices.FirstOrDefault();
         }
 
         private string email;
@@ -148,6 +156,10 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         /// иначе <see langword="false"/>.</returns>
         private bool CanSaveUserExecute(object arg)
         {
+            if (CurrentUser.ID != 0)
+            {
+                return true;
+            }
             StringBuilder builder = new StringBuilder();
             if (string.IsNullOrWhiteSpace(Email)
                 || email.Length > 150
@@ -228,27 +240,48 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                 CurrentUser.Birthdate = BirthDate;
                 CurrentUser.PasswordHash = hash;
                 CurrentUser.Salt = salt;
-                CurrentUser.RoleID = 2;
                 CurrentUser.Active = true;
+                CurrentUser.RoleID = 2;
+            }
+            else
+            {
+                CurrentUser.RoleID = (bool)AdministratorRole ? 1 : 2;
             }
             try
             {
                 using (BaseEntities context = new BaseEntities())
                 {
-                    _ = context.User.Add(CurrentUser);
+                    if (CurrentUser.ID == 0)
+                    {
+                        _ = context.User.Add(CurrentUser);
+                    } else
+                    {
+                        context
+                            .User
+                            .Find(CurrentUser.ID)
+                            .RoleID = CurrentUser.RoleID;
+                    }
                     _ = context.SaveChanges();
                 }
                 CloseAction();
-                FeedbackService.Inform("Пользователь успешно добавлен");
+                FeedbackService.Inform("Пользователь успешно сохранён");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.StackTrace);
                 FeedbackService.InformError("Не удалось "
-                                            + "добавить пользователя. "
+                                            + "сохранить данные пользователя. "
                                             + "Проверьте "
                                             + "подключение к интернету");
             }
         }
+
+        private bool? userRole;
+
+        public bool? UserRole { get => userRole; set => SetProperty(ref userRole, value); }
+
+        private bool? administratorRole;
+
+        public bool? AdministratorRole { get => administratorRole; set => SetProperty(ref administratorRole, value); }
     }
 }

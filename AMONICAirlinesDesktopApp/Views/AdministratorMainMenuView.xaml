@@ -73,7 +73,8 @@
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
                     Grid.Row="2">
-            <Button Content="Change Role" />
+            <Button Content="Change Role"
+                    Command="{Binding GoToChangeRoleViewModelCommand}"/>
             <Button Content="Enable/Disable Login" 
                     Command="{Binding ToggleActivityCommand}"/>
         </StackPanel>

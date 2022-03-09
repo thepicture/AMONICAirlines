@@ -173,13 +173,43 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         }
 
         /// <summary>
-        /// Переходит на окно создания нового пользователя.
+        /// Переходит на модель представления 
+        /// создания нового пользователя.
         /// </summary>
         private void AddUser(object commandParameter)
         {
             WindowService
                 .ShowModalWindowWithParameter
                 <AddUserViewModel, User>(new User());
+            Users = GetUsers();
+        }
+
+        private Command goToChangeRoleViewModelCommand;
+
+        public ICommand GoToChangeRoleViewModelCommand
+        {
+            get
+            {
+                if (goToChangeRoleViewModelCommand == null)
+                {
+                    goToChangeRoleViewModelCommand = new Command(
+                        GoToChangeRoleViewModel, (obj) => SelectedUser != null
+                        );
+                }
+
+                return goToChangeRoleViewModelCommand;
+            }
+        }
+
+        /// <summary>
+        /// Переходит на модель представления 
+        /// изменения роли выбранного пользователя.
+        /// </summary>
+        private void GoToChangeRoleViewModel(object commandParameter)
+        {
+            WindowService
+             .ShowModalWindowWithParameter
+             <AddUserViewModel, User>(SelectedUser);
             Users = GetUsers();
         }
     }
