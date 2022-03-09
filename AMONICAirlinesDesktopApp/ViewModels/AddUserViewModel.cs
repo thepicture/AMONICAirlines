@@ -1,7 +1,14 @@
-﻿using AMONICAirlinesDesktopApp.Models.Entities;
+﻿using AMONICAirlinesDesktopApp.Commands;
+using AMONICAirlinesDesktopApp.Models.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AMONICAirlinesDesktopApp.ViewModels
 {
@@ -44,17 +51,17 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             set => SetProperty(ref lastName, value);
         }
 
-        private object currentOffice;
+        private Office currentOffice;
 
-        public object CurrentOffice
+        public Office CurrentOffice
         {
             get => currentOffice;
             set => SetProperty(ref currentOffice, value);
         }
 
-        private System.DateTime? birthDate;
+        private DateTime? birthDate;
 
-        public System.DateTime? BirthDate
+        public DateTime? BirthDate
         {
             get => birthDate;
             set => SetProperty(ref birthDate, value);
@@ -66,6 +73,173 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         {
             get => offices;
             set => SetProperty(ref offices, value);
+        }
+
+        private Command cancelCommand;
+
+        public ICommand CancelCommand
+        {
+            get
+            {
+                if (cancelCommand == null)
+                {
+                    cancelCommand = new Command(Cancel);
+                }
+
+                return cancelCommand;
+            }
+        }
+
+        /// <summary>
+        /// Отменяет создание нового пользователя.
+        /// </summary>
+        private void Cancel(object commandParameter)
+        {
+            if (FeedbackService.Ask("Действительно отменить " +
+                "создание нового пользователя?"))
+            {
+                CloseAction();
+            }
+        }
+
+        private Command saveUserCommand;
+        private string errors;
+        private string password;
+
+        public ICommand SaveUserCommand
+        {
+            get
+            {
+                if (saveUserCommand == null)
+                {
+                    saveUserCommand = new Command(SaveUser, CanSaveUserExecute);
+                }
+
+                return saveUserCommand;
+            }
+        }
+
+        public string Errors
+        {
+            get => errors;
+            set => SetProperty(ref errors, value);
+        }
+
+        public string Password
+        {
+            get => password;
+            set => SetProperty(ref password, value);
+        }
+
+        /// <summary>
+        /// Определяет, можно ли сохранить пользователя.
+        /// </summary>
+        /// <returns><see langword="true"/>, если 
+        /// пользователя можно сохранить, 
+        /// иначе <see langword="false"/>.</returns>
+        private bool CanSaveUserExecute(object arg)
+        {
+            StringBuilder builder = new StringBuilder();
+            if (string.IsNullOrWhiteSpace(Email)
+                || email.Length > 150
+                || !Regex.IsMatch(Email, @"\w+@\w+\.\w{2,}"))
+            {
+                _ = builder.AppendLine("Почта - это обязательное поле "
+                                       + "длиной до 150 символов "
+                                       + "в формате "
+                                       + "<логин>"
+                                       + "@"
+                                       + "<имя домена>"
+                                       + "."
+                                       + "<расширение домена от 2 символов>");
+            }
+            if (Task.Run(() =>
+            {
+                using (BaseEntities context = new BaseEntities())
+                {
+                    return context
+                    .User.Any(u => u.Email.ToLower() == Email.ToLower());
+                }
+            }).Result)
+            {
+                _ = builder.AppendLine("Указанный email уже есть. " +
+                    "Измените email на другой");
+            }
+            if (string.IsNullOrWhiteSpace(FirstName) || FirstName.Length > 50)
+            {
+                _ = builder.AppendLine("Имя - это обязательное поле "
+                                   + "длиной до 50 символов");
+            }
+            if (string.IsNullOrWhiteSpace(LastName) || LastName.Length > 50)
+            {
+                _ = builder.AppendLine("Фамилия - это обязательное поле "
+                                   + "длиной до 50 символов");
+            }
+            if (CurrentOffice == null)
+            {
+                _ = builder.AppendLine("Укажите офис пользователя");
+            }
+            if (!BirthDate.HasValue || BirthDate.Value >= DateTime.Now)
+            {
+                _ = builder.AppendLine("Дата рождения должна быть " +
+                    "меньше текущей даты и является обязательной " +
+                    "к заполнению");
+            }
+            if (string.IsNullOrWhiteSpace(Password) || Password.Length > 100)
+            {
+                _ = builder.AppendLine("Пароль - это обязательное поле "
+                                   + "длиной до 100 символов");
+            }
+            Errors = builder.Length > 0
+                ? builder.ToString()
+                : null;
+            return builder.Length == 0;
+        }
+
+        /// <summary>
+        /// Сохраняет пользователя.
+        /// </summary>
+        private void SaveUser(object commandParameter)
+        {
+            string salt = Guid
+                .NewGuid()
+                .ToString();
+            byte[] passwordBytes = Encoding
+                .Unicode
+                .GetBytes(Password + salt);
+            byte[] hash = MD5
+                .Create()
+                .ComputeHash(passwordBytes);
+            User user = new User
+            {
+                Email = Email,
+                FirstName = FirstName,
+                LastName = LastName,
+                OfficeID = CurrentOffice.ID,
+                Birthdate = BirthDate,
+                PasswordHash = hash,
+                Salt = salt,
+                RoleID = 2,
+                Active = true
+            };
+            try
+            {
+                using (BaseEntities context = new BaseEntities())
+                {
+                    _ = context.User.Add(user);
+                    _ = context.SaveChanges();
+                }
+                CloseAction();
+                FeedbackService.Inform("Пользователь успешно добавлен");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.StackTrace);
+                FeedbackService.InformError("Не удалось "
+                                            + "добавить пользователя. "
+                                            + "Проверьте "
+                                            + "подключение к интернету");
+            }
         }
     }
 }

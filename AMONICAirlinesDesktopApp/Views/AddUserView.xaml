@@ -11,38 +11,55 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <Label Content="Email address" />
-            <TextBox Text="{Binding Email}" />
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                     MaxLength="150"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="First name" />
-            <TextBox Text="{Binding FirstName}" />
+            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="50"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Last name" />
-            <TextBox Text="{Binding LastName}" />
+            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
+                     MaxLength="50"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Office" />
             <ComboBox ItemsSource="{Binding Offices}"
-                      SelectedItem="{Binding CurrentOffice}"
+                      SelectedItem="{Binding CurrentOffice, UpdateSourceTrigger=PropertyChanged}"
                       DisplayMemberPath="Title"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Birthdate" />
-            <DatePicker SelectedDate="{Binding BirthDate}" />
+            <DatePicker SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Password" />
-            <PasswordBox PasswordChanged="OnPasswordChanged" />
+            <PasswordBox PasswordChanged="OnPasswordChanged"
+                         MaxLength="50"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            <Button Content="Save" />
-            <Button Content="Cancel" />
+            <Button Content="Save" 
+                    Command="{Binding SaveUserCommand}"/>
+            <Button Content="Cancel" 
+                    Command="{Binding CancelCommand}"/>
         </StackPanel>
     </StackPanel>
+            <Label Content="{Binding Errors, TargetNullValue=В текущий момент все заполнено верно\, сохранение разрешено}"
+                   Height="auto"
+                   Width="auto"
+                   Grid.Row="1"
+                   HorizontalContentAlignment="Center"/>
+    </Grid>
 </UserControl>

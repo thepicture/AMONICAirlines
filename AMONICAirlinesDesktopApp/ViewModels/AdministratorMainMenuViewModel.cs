@@ -175,6 +175,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         private void AddUser(object commandParameter)
         {
             WindowService.ShowModalWindow<AddUserViewModel>();
+            Users = GetUsers();
         }
     }
 }
