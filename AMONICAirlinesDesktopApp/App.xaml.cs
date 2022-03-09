@@ -12,6 +12,8 @@ namespace AMONICAirlinesDesktopApp
     {
         public UserActivity Activity { get; set; }
         public User User { get; set; }
+        public bool IsGoToLoginViewModel { get; set; }
+        public bool IsSentReason { get; set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {

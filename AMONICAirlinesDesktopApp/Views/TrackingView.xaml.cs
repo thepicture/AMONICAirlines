@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AMONICAirlinesDesktopApp.Services;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AMONICAirlinesDesktopApp.Views
 {
@@ -23,6 +12,34 @@ namespace AMONICAirlinesDesktopApp.Views
         public TrackingView()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Вызывается в момент загрузки представления.
+        /// </summary>
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Closing += (s, args) =>
+            {
+                if ((App.Current as App).IsSentReason)
+                {
+                    (App.Current as App).IsSentReason = false;
+                    return;
+                }
+                var feedbackService = DependencyService
+                .Get<IFeedbackService>();
+                if (feedbackService.Ask("Если вы не укажите причину сбоя, " +
+                "то не сможете зайти в систему и вернетесь на окно " +
+                "авторизации. Действительно закрыть текущее окно?"))
+                {
+                    (App.Current as App).IsGoToLoginViewModel = true;
+                    App.Current.MainWindow.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    args.Cancel = true;
+                }
+            };
         }
     }
 }

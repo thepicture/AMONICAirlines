@@ -46,11 +46,20 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             {
                 if (confirmCommand == null)
                 {
-                    confirmCommand = new Command(ConfirmAsync);
+                    confirmCommand = new Command(ConfirmAsync,
+                                                 CanConfirmExecute);
                 }
 
                 return confirmCommand;
             }
+        }
+
+        /// <summary>
+        /// Определяет, можно ли отправить данные о сбое.
+        /// </summary>
+        private bool CanConfirmExecute(object arg)
+        {
+            return !string.IsNullOrWhiteSpace(Reason);
         }
 
         /// <summary>
@@ -79,6 +88,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                 }
             });
             FeedbackService.Inform("Спасибо за информацию");
+            (App.Current as App).IsSentReason = true;
             CloseAction();
         }
 

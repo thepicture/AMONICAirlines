@@ -87,6 +87,11 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                     if (lastActivity.LogoutDateTime == null)
                     {
                         WindowService.ShowModalWindow<TrackingViewModel>();
+                        if ((App.Current as App).IsGoToLoginViewModel)
+                        {
+                            (App.Current as App).IsGoToLoginViewModel = false;
+                            return;
+                        }
                     }
                 }
                 var newActivity = new UserActivity
