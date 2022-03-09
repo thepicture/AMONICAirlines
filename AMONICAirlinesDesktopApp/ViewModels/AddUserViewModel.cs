@@ -14,16 +14,24 @@ namespace AMONICAirlinesDesktopApp.ViewModels
 {
     public class AddUserViewModel : BaseViewModel
     {
-        public AddUserViewModel()
+        public AddUserViewModel(User user)
         {
-            Title = "Add user";
-            Offices = Task.Run(() =>
+            CurrentUser = user;
+            if (user.ID != 0)
             {
-                using (BaseEntities context = new BaseEntities())
+
+            }
+            else
+            {
+                Title = "Add user";
+                Offices = Task.Run(() =>
                 {
-                    return context.Office.ToList();
-                }
-            }).Result;
+                    using (BaseEntities context = new BaseEntities())
+                    {
+                        return context.Office.ToList();
+                    }
+                }).Result;
+            }
             CurrentOffice = Offices.FirstOrDefault();
         }
 
@@ -130,6 +138,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             get => password;
             set => SetProperty(ref password, value);
         }
+        public User CurrentUser { get; private set; }
 
         /// <summary>
         /// Определяет, можно ли сохранить пользователя.
@@ -210,23 +219,23 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             byte[] hash = MD5
                 .Create()
                 .ComputeHash(passwordBytes);
-            User user = new User
+            if (CurrentUser.ID == 0)
             {
-                Email = Email,
-                FirstName = FirstName,
-                LastName = LastName,
-                OfficeID = CurrentOffice.ID,
-                Birthdate = BirthDate,
-                PasswordHash = hash,
-                Salt = salt,
-                RoleID = 2,
-                Active = true
-            };
+                CurrentUser.Email = Email;
+                CurrentUser.FirstName = FirstName;
+                CurrentUser.LastName = LastName;
+                CurrentUser.OfficeID = CurrentOffice.ID;
+                CurrentUser.Birthdate = BirthDate;
+                CurrentUser.PasswordHash = hash;
+                CurrentUser.Salt = salt;
+                CurrentUser.RoleID = 2;
+                CurrentUser.Active = true;
+            }
             try
             {
                 using (BaseEntities context = new BaseEntities())
                 {
-                    _ = context.User.Add(user);
+                    _ = context.User.Add(CurrentUser);
                     _ = context.SaveChanges();
                 }
                 CloseAction();

@@ -23,6 +23,24 @@ namespace AMONICAirlinesDesktopApp.Services
             _ = window.ShowDialog();
         }
 
+        public void ShowModalWindowWithParameter<TViewModel, TParam>(
+            TParam param)
+            where TViewModel : BaseViewModel
+        {
+            Window window = new Window
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            };
+            TViewModel viewModel = (TViewModel)Activator
+                .CreateInstance(typeof(TViewModel),
+                                new object[] { param });
+            viewModel.CloseAction = new Action(window.Hide);
+            window.Content = viewModel;
+            window.DataContext = viewModel;
+            window.Title = viewModel.Title;
+            _ = window.ShowDialog();
+        }
+
         public void ShowWindow<TViewModel>()
             where TViewModel : BaseViewModel, new()
         {
@@ -34,6 +52,23 @@ namespace AMONICAirlinesDesktopApp.Services
             {
                 CloseAction = new Action(window.Hide)
             };
+            window.Content = viewModel;
+            window.DataContext = viewModel;
+            window.Title = viewModel.Title;
+            window.Show();
+        }
+
+        public void ShowWindowWithParameter<TViewModel, TParam>(TParam param)
+           where TViewModel : BaseViewModel
+        {
+            Window window = new Window
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            };
+            TViewModel viewModel = (TViewModel)Activator
+                .CreateInstance(typeof(TViewModel),
+                                new object[] { param });
+            viewModel.CloseAction = new Action(window.Hide);
             window.Content = viewModel;
             window.DataContext = viewModel;
             window.Title = viewModel.Title;
