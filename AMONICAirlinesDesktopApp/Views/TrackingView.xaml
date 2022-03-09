@@ -37,7 +37,9 @@
             <TextBox Grid.Row="1"
                      Height="auto" 
                      Text="{Binding Reason}"
-                     Width="auto"/>
+                     Width="auto"
+                     VerticalContentAlignment="Top"
+                     TextWrapping="Wrap"/>
         </Grid>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
