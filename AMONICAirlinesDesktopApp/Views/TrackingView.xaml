@@ -16,12 +16,15 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Label Content="No logout detected for your last login on" />
+            <Label Content="No logout detected for your last login on" 
+                   Width="auto"/>
             <Label Content="{Binding LastLogin}"
-                   ContentStringFormat="{}{0:dd/MM/yyyy}" />
+                   ContentStringFormat="{}{0:dd/MM/yyyy}"
+                   Width="auto"/>
             <Label Content="at" Width="auto" />
             <Label Content="{Binding LastLogin}"
-                   ContentStringFormat="{}{0:hh\:mm}" />
+                   ContentStringFormat="{}{0:hh\:mm}" 
+                   Width="auto"/>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -29,10 +32,12 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Content="Reason:"
+                   Width="auto"
                    HorizontalAlignment="Left" />
             <TextBox Grid.Row="1"
                      Height="auto" 
-                     Text="{Binding Reason}"/>
+                     Text="{Binding Reason}"
+                     Width="auto"/>
         </Grid>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"

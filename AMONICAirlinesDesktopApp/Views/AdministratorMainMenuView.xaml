@@ -17,7 +17,8 @@
         </Grid.RowDefinitions>
         <Menu BorderBrush="Black"
               BorderThickness="1">
-            <MenuItem Header="Add user" />
+            <MenuItem Header="Add user"
+                      Command="{Binding AddUserCommand}"/>
             <MenuItem Header="Exit"
                       Command="{Binding ExitCommand}"/>
         </Menu>
@@ -27,7 +28,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Office:" />
+                <Label Content="Office:" 
+                       Width="auto"/>
                 <ComboBox ItemsSource="{Binding Offices}"
                           SelectedItem="{Binding CurrentOffice}"
                           DisplayMemberPath="Title"

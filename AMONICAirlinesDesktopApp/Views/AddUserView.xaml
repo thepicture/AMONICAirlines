@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="AMONICAirlinesDesktopApp.Views.AddUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:AMONICAirlinesDesktopApp.Views"
+             xmlns:viewmodels="clr-namespace:AMONICAirlinesDesktopApp.ViewModels"
+             xmlns:entities="clr-namespace:AMONICAirlinesDesktopApp.Models.Entities"
+             xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+             d:DataContext="{d:DesignInstance Type=viewmodels:AddUserViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Email address" />
+            <TextBox Text="{Binding Email}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="First name" />
+            <TextBox Text="{Binding FirstName}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Last name" />
+            <TextBox Text="{Binding LastName}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Office" />
+            <ComboBox ItemsSource="{Binding Offices}"
+                      SelectedItem="{Binding CurrentOffice}"
+                      DisplayMemberPath="Title"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Birthdate" />
+            <DatePicker SelectedDate="{Binding BirthDate}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Password" />
+            <PasswordBox PasswordChanged="OnPasswordChanged" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Save" />
+            <Button Content="Cancel" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

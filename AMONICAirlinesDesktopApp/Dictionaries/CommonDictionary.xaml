@@ -23,7 +23,7 @@
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
         <Setter Property="Width"
-                Value="auto" />
+                Value="150" />
     </Style>
     <Style TargetType="RadioButton"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
@@ -32,15 +32,16 @@
     </Style>
     <Style TargetType="TextBox"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
-        <Setter Property="Width"
-                Value="auto" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+    <Style TargetType="DatePicker"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
     </Style>
     <Style TargetType="PasswordBox"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
-        <Setter Property="Width"
-                Value="auto" />
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
     </Style>

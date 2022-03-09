@@ -11,4 +11,7 @@
     <DataTemplate DataType="{x:Type viewmodels:AdministratorMainMenuViewModel}">
         <views:AdministratorMainMenuView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:AddUserViewModel}">
+        <views:AddUserView/>
+    </DataTemplate>
 </ResourceDictionary>

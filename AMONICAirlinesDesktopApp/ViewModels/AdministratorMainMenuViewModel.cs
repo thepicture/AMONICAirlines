@@ -54,8 +54,10 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             get => currentOffice;
             set
             {
-                SetProperty(ref currentOffice, value);
-                Users = GetUsers();
+                if (SetProperty(ref currentOffice, value))
+                {
+                    Users = GetUsers();
+                }
             }
         }
 
@@ -117,7 +119,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                     context.UserActivity
                         .Find(activity.ID)
                         .LogoutDateTime = DateTime.Now;
-                    context.SaveChanges();
+                    _ = context.SaveChanges();
                 }
                 CloseAction();
                 WindowService.ShowWindow<LoginViewModel>();
@@ -150,9 +152,29 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             {
                 context.User.Find(SelectedUser.ID).Active =
                     !context.User.Find(SelectedUser.ID).Active;
-                context.SaveChanges();
+                _ = context.SaveChanges();
             }
             Users = GetUsers();
+        }
+
+        private Command addUserCommand;
+
+        public ICommand AddUserCommand
+        {
+            get
+            {
+                if (addUserCommand == null)
+                {
+                    addUserCommand = new Command(AddUser);
+                }
+
+                return addUserCommand;
+            }
+        }
+
+        private void AddUser(object commandParameter)
+        {
+            WindowService.ShowModalWindow<AddUserViewModel>();
         }
     }
 }
