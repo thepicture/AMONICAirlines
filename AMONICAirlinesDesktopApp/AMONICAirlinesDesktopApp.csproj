@@ -183,6 +183,10 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Resource Include="Fonts\TeXGyreAdventor-Bold.ttf" />
+    <Resource Include="Fonts\TeXGyreAdventor-BoldItalic.ttf" />
+    <Resource Include="Fonts\TeXGyreAdventor-Italic.ttf" />
+    <Resource Include="Fonts\TeXGyreAdventor-Regular.ttf" />
     <None Include="Models\Entities\BaseModel.edmx.diagram">
       <DependentUpon>BaseModel.edmx</DependentUpon>
     </None>

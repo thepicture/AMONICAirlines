@@ -42,6 +42,7 @@
             </StackPanel>
             <DataGrid ItemsSource="{Binding UserActivities}"
                       ColumnWidth="*"
+                      Grid.Row="1"
                       GridLinesVisibility="Vertical">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
