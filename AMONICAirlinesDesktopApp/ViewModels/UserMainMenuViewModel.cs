@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace AMONICAirlinesDesktopApp.ViewModels
 {
@@ -17,6 +18,25 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                 .Take(
                         userActivities.Count() - 1
                      );
+            NumberOfCrashes = userActivities
+                .Count(u => u.LogoutDateTime == null) - 1;
+            TimeSpentOnSystem = userActivities
+                .Where(u => u.LogoutDateTime != null)
+                .Select(u => u.TimeSpentOnSystem)
+                .Aggregate(TimeSpan.Zero, (t1, t2) =>
+                {
+                    return t1.Add(t2.Value);
+                });
+            timer = new DispatcherTimer
+                (DispatcherPriority.Render)
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            timer.Tick += (o, e) =>
+            {
+                TimeSpentOnSystem += TimeSpan.FromSeconds(1);
+            };
+            timer.Start();
         }
 
         /// <summary>
@@ -24,6 +44,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         /// </summary>
         private IEnumerable<UserActivity> LoadUserActivitesAsync()
         {
+            timer?.Stop();
             int userId = (App.Current as App).User.ID;
             using (BaseEntities context = new BaseEntities())
             {
@@ -54,6 +75,19 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         /// </summary>
         private void Exit(object commandParameter)
         {
+            if (FeedbackService.Ask("Действительно завершить сессию?"))
+            {
+                var activity = (App.Current as App).Activity;
+                using (BaseEntities context = new BaseEntities())
+                {
+                    context.UserActivity
+                        .Find(activity.ID)
+                        .LogoutDateTime = DateTime.Now;
+                    _ = context.SaveChanges();
+                }
+                CloseAction();
+                WindowService.ShowWindow<LoginViewModel>();
+            }
         }
 
         private IEnumerable<UserActivity> userActivities;
@@ -72,6 +106,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
             set => SetProperty(ref timeSpentOnSystem, value);
         }
 
+        private DispatcherTimer timer;
         private int numberOfCrashes;
 
         public int NumberOfCrashes

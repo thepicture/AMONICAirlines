@@ -60,13 +60,11 @@
                     <DataGridTextColumn Header="Date"
                                         Binding="{Binding LoginDateTime, StringFormat={}{0:MM/dd/yyyy}}" />
                     <DataGridTextColumn Header="Login time"
-                                        Width="auto"
                                         Binding="{Binding LoginDateTime, StringFormat={}{0:hh\:mm}}" />
                     <DataGridTextColumn Header="Logout time"
-                                        Binding="{Binding LogoutDateTime, TargetNullValue=**}"
-                                        Width="auto" />
+                                        Binding="{Binding LogoutDateTime, TargetNullValue=**, StringFormat={}{0:hh\:mm}}"/>
                     <DataGridTextColumn Header="Time spent on system"
-                                        Binding="{Binding TimeSpentOnSystem, TargetNullValue=**}" />
+                                        Binding="{Binding TimeSpentOnSystem, TargetNullValue=**, StringFormat={}{0:hh}:{0:mm}}" />
                     <DataGridTextColumn Header="Unsuccessful logout reason"
                                         Binding="{Binding Reason}" />
                 </DataGrid.Columns>

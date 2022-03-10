@@ -7,8 +7,6 @@ namespace AMONICAirlinesDesktopApp.Models.Entities
         public TimeSpan? TimeSpentOnSystem =>
             LogoutDateTime == null
                     ? null
-                    : (TimeSpan?)LogoutDateTime
-                        .Value
-                        .Subtract(LoginDateTime);
+                    : (TimeSpan?)LogoutDateTime.Value.Subtract(LoginDateTime);
     }
 }
