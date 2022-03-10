@@ -63,10 +63,10 @@
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Grid.Column="1">
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, TargetNullValue=j.doe@amonic.com}"
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, TargetNullValue=k.omar@amonic.com}"
                      Width="auto" />
             <PasswordBox PasswordChanged="OnPasswordChanged"
-                         Password="123"
+                         Password="4258"
                          Width="auto" />
 
             <StackPanel Orientation="Horizontal"

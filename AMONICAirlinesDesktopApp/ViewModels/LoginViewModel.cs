@@ -17,8 +17,8 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         {
             Title = "Login";
 
-            Email = "j.doe@amonic.com";
-            Password = "123";
+            Email = "k.omar@amonic.com";
+            Password = "4258";
         }
 
         private Command loginCommand;
@@ -117,6 +117,9 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                             .ShowWindow<AdministratorMainMenuViewModel>();
                         break;
                     case "User":
+                        CloseAction();
+                        WindowService
+                            .ShowWindow<UserMainMenuViewModel>();
                         break;
                     default:
                         break;

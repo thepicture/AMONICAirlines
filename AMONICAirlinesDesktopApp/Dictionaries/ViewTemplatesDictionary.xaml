@@ -12,6 +12,9 @@
         <views:AdministratorMainMenuView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type viewmodels:AddUserViewModel}">
-        <views:AddUserView/>
+        <views:AddUserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:UserMainMenuViewModel}">
+        <views:UserMainMenuView />
     </DataTemplate>
 </ResourceDictionary>

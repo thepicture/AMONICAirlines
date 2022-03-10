@@ -66,8 +66,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Entities\PartialUser.cs" />
+    <Compile Include="Models\Entities\PartialUserActivity.cs" />
     <Compile Include="ViewModels\AddUserViewModel.cs" />
     <Compile Include="ViewModels\AdministratorMainMenuViewModel.cs" />
+    <Compile Include="ViewModels\UserMainMenuViewModel.cs" />
     <Compile Include="Views\AddUserView.xaml.cs">
       <DependentUpon>AddUserView.xaml</DependentUpon>
     </Compile>
@@ -76,6 +78,9 @@
     </Compile>
     <Compile Include="Views\TrackingView.xaml.cs">
       <DependentUpon>TrackingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserMainMenuView.xaml.cs">
+      <DependentUpon>UserMainMenuView.xaml</DependentUpon>
     </Compile>
     <Page Include="Dictionaries\CommonDictionary.xaml">
       <SubType>Designer</SubType>
@@ -148,6 +153,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\TrackingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserMainMenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
