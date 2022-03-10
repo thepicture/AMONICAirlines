@@ -39,7 +39,8 @@
                       ItemsSource="{Binding Users}"
                       ColumnWidth="*"
                       SelectionMode="Single"
-                      SelectedItem="{Binding SelectedUser}">
+                      SelectedItem="{Binding SelectedUser}"
+                      GridLinesVisibility="Vertical">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>

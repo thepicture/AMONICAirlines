@@ -40,9 +40,9 @@
                            Width="auto" />
                 </StackPanel>
             </StackPanel>
-            <DataGrid Grid.Row="1"
-                      ItemsSource="{Binding UserActivities}"
-                      ColumnWidth="*">
+            <DataGrid ItemsSource="{Binding UserActivities}"
+                      ColumnWidth="*"
+                      GridLinesVisibility="Vertical">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
