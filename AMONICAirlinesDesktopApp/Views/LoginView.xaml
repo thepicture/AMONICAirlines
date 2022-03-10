@@ -72,7 +72,9 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <Button Content="Login"
-                        Command="{Binding LoginCommand}" />
+                        Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding IsNotLoggingIn}"/>
+
                 <Button Content="Exit"
                         Command="{Binding ExitCommand}" />
             </StackPanel>

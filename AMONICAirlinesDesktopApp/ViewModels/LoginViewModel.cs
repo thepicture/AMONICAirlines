@@ -41,6 +41,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         /// </summary>
         private async void PerformLoginAsync(object commandParameter)
         {
+            IsNotLoggingIn = false;
             User user = await Task.Run(() =>
             {
                 using (BaseEntities context = new BaseEntities())
@@ -136,6 +137,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
                                      + "имя пользователя "
                                      + "или пароль");
             }
+            IsNotLoggingIn = true;
         }
 
         private TimeSpan awaitTime = TimeSpan.FromSeconds(10);
@@ -202,6 +204,7 @@ namespace AMONICAirlinesDesktopApp.ViewModels
 
         private string password;
         private int incorrectLoginAttemps;
+        private bool isNotLoggingIn = true;
 
         public string Password
         {
@@ -212,6 +215,11 @@ namespace AMONICAirlinesDesktopApp.ViewModels
         {
             get => currentTimeSpan;
             set => SetProperty(ref currentTimeSpan, value);
+        }
+        public bool IsNotLoggingIn
+        {
+            get => isNotLoggingIn;
+            set => SetProperty(ref isNotLoggingIn, value);
         }
     }
 }
