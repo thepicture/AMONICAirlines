@@ -200,5 +200,46 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
             }
             Schedules = currentSchedules;
         }
+
+        private Command toggleFlightCommand;
+
+        public ICommand ToggleFlightCommand
+        {
+            get
+            {
+                if (toggleFlightCommand == null)
+                {
+                    toggleFlightCommand = new Command(ToggleFlight, (obj) => SelectedFlight != null);
+                }
+
+                return toggleFlightCommand;
+            }
+        }
+
+        /// <summary>
+        /// Переключить статус рейса 
+        /// между «Отменен» и «Подтвержден» 
+        /// для выбранного рейса.
+        /// </summary>
+        private void ToggleFlight(object commandParameter)
+        {
+            using (SessionTwoEntities context = new SessionTwoEntities())
+            {
+                context
+                    .Schedules
+                    .Find(SelectedFlight.ID)
+                    .Confirmed = !SelectedFlight.Confirmed;
+                context.SaveChanges();
+            }
+            FilterSchedules();
+        }
+
+        private Schedule selectedFlight;
+
+        public Schedule SelectedFlight
+        {
+            get => selectedFlight;
+            set => SetProperty(ref selectedFlight, value);
+        }
     }
 }

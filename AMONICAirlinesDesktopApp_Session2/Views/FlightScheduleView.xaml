@@ -71,6 +71,8 @@
             </Grid>
         </GroupBox>
         <DataGrid ItemsSource="{Binding Schedules}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding SelectedFlight}"
                   ColumnWidth="*"
                   GridLinesVisibility="Vertical"
                   Grid.Row="1">
@@ -112,7 +114,9 @@
               Height="75">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top">
-                <Button Content="Cancel Flight"/>
+                <Button Command="{Binding ToggleFlightCommand}"
+                        Content="Toggle Flight"
+                        Style="{StaticResource DangerButton}"/>
                 <Button Content="Edit Flight" />
             </StackPanel>
             <Button Content="Import Changes"
