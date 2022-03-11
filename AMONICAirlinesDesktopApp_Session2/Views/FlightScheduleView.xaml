@@ -71,16 +71,38 @@
                   ColumnWidth="*"
                   GridLinesVisibility="Vertical"
                   Grid.Row="1">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Confirmed}"
+                                     Value="False">
+                            <Setter Property="Background"
+                                    Value="Red" />
+                            <Setter Property="Foreground"
+                                    Value="White" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date"/>
-                <DataGridTextColumn Header="Time" />
-                <DataGridTextColumn Header="From" />
-                <DataGridTextColumn Header="To" />
-                <DataGridTextColumn Header="FlightNumber" />
-                <DataGridTextColumn Header="Aircraft" />
-                <DataGridTextColumn Header="Economy price" />
-                <DataGridTextColumn Header="Business price" />
-                <DataGridTextColumn Header="First class price" />
+                <DataGridTextColumn Header="Date"
+                                    Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Header="Time"
+                                    Binding="{Binding Time, StringFormat={}{0:hh}\:{0:mm}}"/>
+                <DataGridTextColumn Header="From"
+                                    Binding="{Binding Route.Airport.IATACode}"/>
+                <DataGridTextColumn Header="To"
+                                    Binding="{Binding Route.Airport1.IATACode}"/>
+                <DataGridTextColumn Header="FlightNumber" 
+                                    Binding="{Binding FlightNumber}"/>
+                <DataGridTextColumn Header="Aircraft" 
+                                    Binding="{Binding AircraftID}"/>
+                <DataGridTextColumn Header="Economy price" 
+                                    Binding="{Binding EconomyPrice, StringFormat=${0:F0}}"/>
+                <DataGridTextColumn Header="Business price"
+                                    Binding="{Binding BusinessPrice, StringFormat=${0:F0}}"/>
+                <DataGridTextColumn Header="First class price"
+                                    Binding="{Binding FirstClassPrice, StringFormat=${0:F0}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2"

@@ -19,7 +19,7 @@
         <Setter Property="MinHeight"
                 Value="550" />
         <Setter Property="FontFamily"
-                Value="/AMONICAirlinesDesktopApp;component/Fonts/#TeX Gyre Adventor" />
+                Value="/AMONICAirlinesDesktopApp_Session2;component/Fonts/#TeX Gyre Adventor" />
     </Style>
     <Style TargetType="Label"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">

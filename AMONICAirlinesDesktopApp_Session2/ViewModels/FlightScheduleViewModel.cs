@@ -1,4 +1,8 @@
-﻿using AMONICAirlinesDesktopApp.ViewModels;
+﻿using AMONICAirlinesDesktopApp_Session2.ViewModels;
+using AMONICAirlinesDesktopApp_Session2.Models.Entities;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace AMONICAirlinesDesktopApp_Session2.ViewModels
 {
@@ -7,38 +11,88 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
         public FlightScheduleViewModel()
         {
             Title = "Manage Flight Schedules";
+            Schedules = GetSchedules();
         }
 
-        private System.Collections.IEnumerable airports;
+        /// <summary>
+        /// Получает коллекцию рейсов.
+        /// </summary>
+        /// <returns>Коллекция рейсов.</returns>
+        private IEnumerable<Schedule> GetSchedules()
+        {
+            using (SessionTwoEntities context = new SessionTwoEntities())
+            {
+                return context
+                    .Schedules
+                    .Include(s => s.Route)
+                    .Include(s => s.Route.Airport)
+                    .Include(s => s.Route.Airport1)
+                    .ToList();
+            }
+        }
 
-        public System.Collections.IEnumerable Airports { get => airports; set => SetProperty(ref airports, value); }
+        private IEnumerable<Airport> airports;
 
-        private System.Collections.IEnumerable sortTypes;
+        public IEnumerable<Airport> Airports
+        {
+            get => airports;
+            set => SetProperty(ref airports, value);
+        }
 
-        public System.Collections.IEnumerable SortTypes { get => sortTypes; set => SetProperty(ref sortTypes, value); }
+        private IEnumerable<string> sortTypes;
 
-        private object fromAirport;
+        public IEnumerable<string> SortTypes
+        {
+            get => sortTypes;
+            set => SetProperty(ref sortTypes, value);
+        }
 
-        public object FromAirport { get => fromAirport; set => SetProperty(ref fromAirport, value); }
+        private Airport fromAirport;
 
-        private object toAirport;
+        public Airport FromAirport
+        {
+            get => fromAirport;
+            set => SetProperty(ref fromAirport, value);
+        }
 
-        public object ToAirport { get => toAirport; set => SetProperty(ref toAirport, value); }
+        private Airport toAirport;
 
-        private object currentSortType;
+        public Airport ToAirport
+        {
+            get => toAirport;
+            set => SetProperty(ref toAirport, value);
+        }
 
-        public object CurrentSortType { get => currentSortType; set => SetProperty(ref currentSortType, value); }
+        private string currentSortType;
+
+        public string CurrentSortType
+        {
+            get => currentSortType;
+            set => SetProperty(ref currentSortType, value);
+        }
 
         private System.DateTime? outboundDate;
 
-        public System.DateTime? OutboundDate { get => outboundDate; set => SetProperty(ref outboundDate, value); }
+        public System.DateTime? OutboundDate
+        {
+            get => outboundDate;
+            set => SetProperty(ref outboundDate, value);
+        }
 
         private string flightNumber;
 
-        public string FlightNumber { get => flightNumber; set => SetProperty(ref flightNumber, value); }
+        public string FlightNumber
+        {
+            get => flightNumber;
+            set => SetProperty(ref flightNumber, value);
+        }
 
-        private System.Collections.IEnumerable schedules;
+        private IEnumerable<Schedule> schedules;
 
-        public System.Collections.IEnumerable Schedules { get => schedules; set => SetProperty(ref schedules, value); }
+        public IEnumerable<Schedule> Schedules
+        {
+            get => schedules;
+            set => SetProperty(ref schedules, value);
+        }
     }
 }
