@@ -8,8 +8,91 @@
              d:DataContext="{d:DesignInstance Type=viewmodels:FlightScheduleViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450"
-             d:DesignWidth="800">
+             d:DesignWidth="900">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="Filter by">
+            <Grid HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="From"
+                           Width="75" />
+                    <ComboBox ItemsSource="{Binding Airports}"
+                              SelectedItem="{Binding FromAirport}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="1">
+                    <Label Content="To"
+                           Width="auto" />
+                    <ComboBox ItemsSource="{Binding Airports}"
+                              SelectedItem="{Binding ToAirport}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="2">
+                    <Label Content="Sort by"
+                           Width="55" />
+                    <ComboBox ItemsSource="{Binding SortTypes}"
+                              SelectedItem="{Binding CurrentSortType}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1">
+                    <Label Content="Outbound"
+                           Width="75" />
+                    <DatePicker SelectedDate="{Binding OutboundDate}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1"
+                            Grid.Column="1">
+                    <Label Content="Flight number"
+                           Width="90" />
+                    <TextBox Text="{Binding FlightNumber}"
+                             Width="130"/>
+                </StackPanel>
+                <Button Content="Apply"
+                        Width="200"
+                        HorizontalAlignment="Right"
+                        Grid.Row="1"
+                        Grid.Column="2"/>
+            </Grid>
+        </GroupBox>
+        <DataGrid ItemsSource="{Binding Schedules}"
+                  ColumnWidth="*"
+                  GridLinesVisibility="Vertical"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date"/>
+                <DataGridTextColumn Header="Time" />
+                <DataGridTextColumn Header="From" />
+                <DataGridTextColumn Header="To" />
+                <DataGridTextColumn Header="FlightNumber" />
+                <DataGridTextColumn Header="Aircraft" />
+                <DataGridTextColumn Header="Economy price" />
+                <DataGridTextColumn Header="Business price" />
+                <DataGridTextColumn Header="First class price" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2"
+              Height="75">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top">
+                <Button Content="Cancel Flight"/>
+                <Button Content="Edit Flight" />
+            </StackPanel>
+            <Button Content="Import Changes"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"/>
+        </Grid>
     </Grid>
 </UserControl>
