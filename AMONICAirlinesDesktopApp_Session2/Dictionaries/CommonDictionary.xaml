@@ -15,7 +15,7 @@
         <Setter Property="Icon"
                 Value="pack://application:,,,/Resources/DS2017_TP09_color.png" />
         <Setter Property="MinWidth"
-                Value="800" />
+                Value="900" />
         <Setter Property="MinHeight"
                 Value="550" />
         <Setter Property="FontFamily"
