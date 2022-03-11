@@ -30,14 +30,16 @@
                     <Label Content="From"
                            Width="75" />
                     <ComboBox ItemsSource="{Binding Airports}"
-                              SelectedItem="{Binding FromAirport}" />
+                              SelectedItem="{Binding FromAirport}" 
+                              DisplayMemberPath="IATACode"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Column="1">
                     <Label Content="To"
                            Width="auto" />
                     <ComboBox ItemsSource="{Binding Airports}"
-                              SelectedItem="{Binding ToAirport}" />
+                              SelectedItem="{Binding ToAirport}"
+                              DisplayMemberPath="IATACode" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Column="2">
@@ -64,7 +66,8 @@
                         Width="200"
                         HorizontalAlignment="Right"
                         Grid.Row="1"
-                        Grid.Column="2"/>
+                        Grid.Column="2"
+                        Command="{Binding FilterSchedulesCommand}"/>
             </Grid>
         </GroupBox>
         <DataGrid ItemsSource="{Binding Schedules}"
