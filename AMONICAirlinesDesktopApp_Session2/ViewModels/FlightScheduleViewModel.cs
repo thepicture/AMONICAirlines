@@ -278,5 +278,28 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
                 <ScheduleEditViewModel, Schedule>(SelectedFlight);
             FilterSchedules();
         }
+
+        private Command goToImportChangesCommand;
+
+        public ICommand GoToImportChangesCommand
+        {
+            get
+            {
+                if (goToImportChangesCommand == null)
+                {
+                    goToImportChangesCommand = new Command(GoToImportChanges);
+                }
+
+                return goToImportChangesCommand;
+            }
+        }
+
+        /// <summary>
+        /// Переходит на модель представления импорта данных.
+        /// </summary>
+        private void GoToImportChanges(object commandParameter)
+        {
+            WindowService.ShowModalWindow<ImportChangesViewModel>();
+        }
     }
 }

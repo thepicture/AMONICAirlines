@@ -49,9 +49,9 @@
         </StackPanel>
         <UniformGrid Grid.Row="2"
                      Columns="2">
-            <Label Content="{Binding Errors, TargetNullValue=Ошибок валидации нет}" 
+            <Label Content="{Binding Errors, TargetNullValue=Ошибок валидации нет}"
                    Width="auto"
-                   Height="auto"/>
+                   Height="auto" />
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Grid.Column="1">

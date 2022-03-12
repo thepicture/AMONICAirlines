@@ -8,4 +8,7 @@
     <DataTemplate DataType="{x:Type viewmodels:ScheduleEditViewModel}">
         <views:ScheduleEditView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:ImportChangesViewModel}">
+        <views:ImportChangesView/>
+    </DataTemplate>
 </ResourceDictionary>
