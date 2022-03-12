@@ -116,8 +116,12 @@
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightScheduleViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleEditViewModel.cs" />
     <Compile Include="Views\FlightScheduleView.xaml.cs">
       <DependentUpon>FlightScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScheduleEditView.xaml.cs">
+      <DependentUpon>ScheduleEditView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +173,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FlightScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScheduleEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

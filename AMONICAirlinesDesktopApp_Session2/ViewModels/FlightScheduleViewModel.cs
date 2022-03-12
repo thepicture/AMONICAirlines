@@ -62,6 +62,7 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
             {
                 return context
                     .Schedules
+                    .Include(s => s.Aircraft)
                     .Include(s => s.Route)
                     .Include(s => s.Route.Airport)
                     .Include(s => s.Route.Airport1)
@@ -240,6 +241,41 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
         {
             get => selectedFlight;
             set => SetProperty(ref selectedFlight, value);
+        }
+
+        private Command editFlightCommand;
+
+        public ICommand EditFlightCommand
+        {
+            get
+            {
+                if (editFlightCommand == null)
+                {
+                    editFlightCommand = new Command(EditFlight,
+                                                    CanEditFlightExecute);
+                }
+
+                return editFlightCommand;
+            }
+        }
+
+        /// <summary>
+        /// Определяет, можно ли перейти 
+        /// на окно представления изменения рейса.
+        /// </summary>
+        private bool CanEditFlightExecute(object arg)
+        {
+            return SelectedFlight != null;
+        }
+
+        /// <summary>
+        /// Переходит на модель представления изменения рейса.
+        /// </summary>
+        private void EditFlight(object commandParameter)
+        {
+            WindowService
+                .ShowModalWindowWithParameter
+                <ScheduleEditViewModel, Schedule>(SelectedFlight);
         }
     }
 }

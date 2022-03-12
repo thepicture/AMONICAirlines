@@ -142,7 +142,8 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="✎ Edit Flight" />
+                <Button Content="✎ Edit Flight" 
+                        Command="{Binding EditFlightCommand}"/>
             </StackPanel>
             <Button VerticalAlignment="Top"
                     HorizontalAlignment="Right">

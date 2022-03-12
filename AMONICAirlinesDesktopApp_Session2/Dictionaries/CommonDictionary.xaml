@@ -89,4 +89,11 @@
         <Setter Property="Background"
                 Value="Red" />
     </Style>
+    <Style TargetType="GroupBox"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Setter Property="Width"
+                Value="auto" />
+        <Setter Property="Height"
+                Value="auto" />
+    </Style>
 </ResourceDictionary>

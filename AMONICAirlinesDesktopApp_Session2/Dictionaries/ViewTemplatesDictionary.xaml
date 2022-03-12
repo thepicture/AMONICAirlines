@@ -5,4 +5,7 @@
     <DataTemplate DataType="{x:Type viewmodels:FlightScheduleViewModel}">
         <views:FlightScheduleView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:ScheduleEditViewModel}">
+        <views:ScheduleEditView/>
+    </DataTemplate>
 </ResourceDictionary>
