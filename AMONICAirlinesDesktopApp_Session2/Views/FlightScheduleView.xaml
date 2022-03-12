@@ -30,8 +30,8 @@
                     <Label Content="From"
                            Width="75" />
                     <ComboBox ItemsSource="{Binding Airports}"
-                              SelectedItem="{Binding FromAirport}" 
-                              DisplayMemberPath="IATACode"/>
+                              SelectedItem="{Binding FromAirport}"
+                              DisplayMemberPath="IATACode" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Column="1">
@@ -46,13 +46,13 @@
                     <Label Content="Sort by"
                            Width="55" />
                     <ComboBox ItemsSource="{Binding SortTypes}"
-                              SelectedItem="{Binding CurrentSortType}"/>
+                              SelectedItem="{Binding CurrentSortType}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1">
                     <Label Content="Outbound"
                            Width="75" />
-                    <DatePicker SelectedDate="{Binding OutboundDate}"/>
+                    <DatePicker SelectedDate="{Binding OutboundDate}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1"
@@ -60,14 +60,14 @@
                     <Label Content="Flight number"
                            Width="90" />
                     <TextBox Text="{Binding FlightNumber}"
-                             Width="130"/>
+                             Width="130" />
                 </StackPanel>
                 <Button Content="Apply"
                         Width="200"
                         HorizontalAlignment="Right"
                         Grid.Row="1"
                         Grid.Column="2"
-                        Command="{Binding FilterSchedulesCommand}"/>
+                        Command="{Binding FilterSchedulesCommand}" />
             </Grid>
         </GroupBox>
         <DataGrid ItemsSource="{Binding Schedules}"
@@ -91,23 +91,23 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date"
-                                    Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}"/>
+                                    Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}" />
                 <DataGridTextColumn Header="Time"
-                                    Binding="{Binding Time, StringFormat={}{0:hh}\:{0:mm}}"/>
+                                    Binding="{Binding Time, StringFormat={}{0:hh}\:{0:mm}}" />
                 <DataGridTextColumn Header="From"
-                                    Binding="{Binding Route.Airport.IATACode}"/>
+                                    Binding="{Binding Route.Airport.IATACode}" />
                 <DataGridTextColumn Header="To"
-                                    Binding="{Binding Route.Airport1.IATACode}"/>
-                <DataGridTextColumn Header="FlightNumber" 
-                                    Binding="{Binding FlightNumber}"/>
-                <DataGridTextColumn Header="Aircraft" 
-                                    Binding="{Binding AircraftID}"/>
-                <DataGridTextColumn Header="Economy price" 
-                                    Binding="{Binding EconomyPrice, StringFormat=${0:F0}}"/>
+                                    Binding="{Binding Route.Airport1.IATACode}" />
+                <DataGridTextColumn Header="FlightNumber"
+                                    Binding="{Binding FlightNumber}" />
+                <DataGridTextColumn Header="Aircraft"
+                                    Binding="{Binding AircraftID}" />
+                <DataGridTextColumn Header="Economy price"
+                                    Binding="{Binding EconomyPrice, StringFormat=${0:F0}}" />
                 <DataGridTextColumn Header="Business price"
-                                    Binding="{Binding BusinessPrice, StringFormat=${0:F0}}"/>
+                                    Binding="{Binding BusinessPrice, StringFormat=${0:F0}}" />
                 <DataGridTextColumn Header="First class price"
-                                    Binding="{Binding FirstClassPrice, StringFormat=${0:F0}}"/>
+                                    Binding="{Binding FirstClassPrice, StringFormat=${0:F0}}" />
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2"
@@ -115,13 +115,42 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top">
                 <Button Command="{Binding ToggleFlightCommand}"
-                        Content="Toggle Flight"
-                        Style="{StaticResource DangerButton}"/>
-                <Button Content="Edit Flight" />
+                        Content="☒ Toggle Flight">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource DangerButton}">
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled"
+                                         Value="False">
+                                    <Setter Property="Foreground"
+                                            Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="✎ Edit Flight" />
             </StackPanel>
-            <Button Content="Import Changes"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Right"/>
+            <Button VerticalAlignment="Top"
+                    HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Ellipse Width="20"
+                                 Height="20"
+                                 Stroke="White" />
+                        <Label Content="🡅"
+                               Width="auto"
+                               Height="auto"
+                               Margin="0"
+                               Foreground="White" />
+                    </Grid>
+                    <Label Content="Import Changes"
+                           Margin="0"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Width="auto" />
+                </StackPanel>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>
