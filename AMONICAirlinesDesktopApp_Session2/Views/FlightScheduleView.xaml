@@ -52,7 +52,7 @@
                             Grid.Row="1">
                     <Label Content="Outbound"
                            Width="75" />
-                    <DatePicker SelectedDate="{Binding OutboundDate}"/>
+                    <DatePicker SelectedDate="{Binding OutboundDate}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1"
@@ -114,17 +114,30 @@
               Height="75">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top">
-                <Button Command="{Binding ToggleFlightCommand}"
-                        Content="☒ Toggle Flight">
+                <Button Command="{Binding ToggleFlightCommand}">
                     <Button.Style>
                         <Style TargetType="Button"
                                BasedOn="{StaticResource DangerButton}">
+                            <Setter Property="Content"
+                                    Value="☒ Cancel Flight" />
                             <Style.Triggers>
                                 <Trigger Property="IsEnabled"
                                          Value="False">
                                     <Setter Property="Foreground"
                                             Value="Black" />
                                 </Trigger>
+                                <DataTrigger Binding="{Binding SelectedFlight.Confirmed}"
+                                             Value="False">
+                                    <Setter Property="Content"
+                                            Value="☑ Confirm Flight" />
+                                    <Setter Property="Background"
+                                            Value="Green" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedFlight}"
+                                             Value="{x:Null}">
+                                    <Setter Property="Content"
+                                            Value="Select Flight For Toggle" />
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
