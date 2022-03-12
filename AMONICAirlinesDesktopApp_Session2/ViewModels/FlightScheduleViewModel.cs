@@ -261,7 +261,7 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
 
         /// <summary>
         /// Определяет, можно ли перейти 
-        /// на окно представления изменения рейса.
+        /// на модель представления изменения рейса.
         /// </summary>
         private bool CanEditFlightExecute(object arg)
         {
@@ -276,6 +276,7 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
             WindowService
                 .ShowModalWindowWithParameter
                 <ScheduleEditViewModel, Schedule>(SelectedFlight);
+            FilterSchedules();
         }
     }
 }

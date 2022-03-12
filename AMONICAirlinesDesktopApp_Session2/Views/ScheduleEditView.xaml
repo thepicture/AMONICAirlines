@@ -16,18 +16,18 @@
                 <Label Content="From:"
                        Width="auto" />
                 <Label Content="{Binding Schedule.Route.Airport.IATACode}"
-                       Width="auto" 
-                       FontWeight="Bold"/>
-                <Label Content="To:" 
-                       Width="auto"/>
+                       Width="auto"
+                       FontWeight="Bold" />
+                <Label Content="To:"
+                       Width="auto" />
                 <Label Content="{Binding Schedule.Route.Airport1.IATACode}"
-                       Width="auto" 
-                       FontWeight="Bold"/>
-                <Label Content="Aircraft:" 
-                       Width="auto"/>
+                       Width="auto"
+                       FontWeight="Bold" />
+                <Label Content="Aircraft:"
+                       Width="auto" />
                 <Label Content="{Binding Schedule.Aircraft.Name}"
                        Width="auto"
-                       FontWeight="Bold"/>
+                       FontWeight="Bold" />
             </StackPanel>
         </GroupBox>
         <StackPanel Orientation="Horizontal"
@@ -37,20 +37,30 @@
                    Width="auto" />
             <DatePicker SelectedDate="{Binding ScheduleDate, UpdateSourceTrigger=PropertyChanged}"
                         Width="150"
-                        Height="40"/>
+                        Height="40" />
             <Label Content="Time:"
                    Width="auto" />
-            <TextBox Width="75" Text="{Binding ScheduleTime, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Width="75"
+                     Text="{Binding ScheduleTime, UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="Economy price: $"
                    Width="auto" />
-            <TextBox Width="70" Text="{Binding EconomyPrice, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Width="70"
+                     Text="{Binding EconomyPrice, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Grid.Row="2">
-            <Button Content="Update" />
-            <Button Content="Cancel"
-                    Style="{StaticResource DangerButton}" />
-        </StackPanel>
+        <UniformGrid Grid.Row="2"
+                     Columns="2">
+            <Label Content="{Binding Errors, TargetNullValue=Ошибок валидации нет}" 
+                   Width="auto"
+                   Height="auto"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Grid.Column="1">
+                <Button Content="Update"
+                        Command="{Binding UpdateCommand}" />
+                <Button Content="Cancel"
+                        Style="{StaticResource DangerButton}"
+                        Command="{Binding CancelCommand}" />
+            </StackPanel>
+        </UniformGrid>
     </UniformGrid>
 </UserControl>
