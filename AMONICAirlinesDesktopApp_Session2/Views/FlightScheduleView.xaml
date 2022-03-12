@@ -52,7 +52,7 @@
                             Grid.Row="1">
                     <Label Content="Outbound"
                            Width="75" />
-                    <DatePicker SelectedDate="{Binding OutboundDate}" />
+                    <DatePicker SelectedDate="{Binding OutboundDate}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1"

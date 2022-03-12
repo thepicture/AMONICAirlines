@@ -44,6 +44,14 @@
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
+        <Setter Property="Height"
+                Value="auto" />
+        <Style.Resources>
+            <Style TargetType="DatePickerTextBox">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+        </Style.Resources>
     </Style>
     <Style TargetType="PasswordBox"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
