@@ -132,6 +132,7 @@ namespace AMONICAirlinesDesktopApp_Session2.Services
                         catch (Exception ex)
                         {
                             Debug.WriteLine(ex.StackTrace);
+                            RecordsWithMissingFieldsCount++;
                         }
                         break;
                     case "ADD":
@@ -185,6 +186,7 @@ namespace AMONICAirlinesDesktopApp_Session2.Services
                         catch (Exception ex)
                         {
                             Debug.WriteLine(ex.StackTrace);
+                            recordsWithMissingFieldsCount++;
                         }
                         break;
                     default:
