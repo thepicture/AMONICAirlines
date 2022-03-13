@@ -37,15 +37,18 @@
                    Width="auto" />
             <DatePicker SelectedDate="{Binding ScheduleDate, UpdateSourceTrigger=PropertyChanged}"
                         Width="150"
-                        Height="40" />
+                        Height="40" 
+                        ToolTip="Дата рейса"/>
             <Label Content="Time:"
                    Width="auto" />
             <TextBox Width="75"
-                     Text="{Binding ScheduleTime, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding ScheduleTime, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="Время рейса в формате &lt;часы&gt;:&lt;минуты&gt;"/>
             <Label Content="Economy price: $"
                    Width="auto" />
             <TextBox Width="70"
-                     Text="{Binding EconomyPrice, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding EconomyPrice, UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Стоимость билета эконом-класса"/>
         </StackPanel>
         <UniformGrid Grid.Row="2"
                      Columns="2">
@@ -56,10 +59,12 @@
                         HorizontalAlignment="Right"
                         Grid.Column="1">
                 <Button Content="Update"
-                        Command="{Binding UpdateCommand}" />
+                        Command="{Binding UpdateCommand}" 
+                        ToolTip="Обновить информацию о рейсе"/>
                 <Button Content="Cancel"
                         Style="{StaticResource DangerButton}"
-                        Command="{Binding CancelCommand}" />
+                        Command="{Binding CancelCommand}"
+                        ToolTip="Отменить изменение информации о рейсе"/>
             </StackPanel>
         </UniformGrid>
     </UniformGrid>

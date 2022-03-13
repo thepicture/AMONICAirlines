@@ -23,14 +23,16 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Width="auto">
+            <TextBox Width="auto"
+                     ToolTip="Импортировать файл с рейсами">
                 <TextBox.InputBindings>
                     <MouseBinding Gesture="LeftClick"
                                   Command="{Binding ImportFileCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
             <Button Grid.Column="1"
-                    Command="{Binding ImportFileCommand}">
+                    Command="{Binding ImportFileCommand}"
+                    ToolTip="Импортировать файл с рейсами">
                 <StackPanel Orientation="Horizontal">
                     <Grid>
                         <Ellipse Width="20"

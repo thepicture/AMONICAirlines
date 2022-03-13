@@ -31,7 +31,8 @@
                            Width="75" />
                     <ComboBox ItemsSource="{Binding Airports}"
                               SelectedItem="{Binding FromAirport}"
-                              DisplayMemberPath="IATACode" />
+                              DisplayMemberPath="IATACode" 
+                              ToolTip="Аэропорт отбытия"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Column="1">
@@ -39,20 +40,23 @@
                            Width="auto" />
                     <ComboBox ItemsSource="{Binding Airports}"
                               SelectedItem="{Binding ToAirport}"
-                              DisplayMemberPath="IATACode" />
+                              DisplayMemberPath="IATACode"
+                              ToolTip="Аэропорт прибытия"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Column="2">
                     <Label Content="Sort by"
                            Width="55" />
                     <ComboBox ItemsSource="{Binding SortTypes}"
-                              SelectedItem="{Binding CurrentSortType}" />
+                              SelectedItem="{Binding CurrentSortType}"
+                              ToolTip="Тип сортировки списка рейсов"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1">
                     <Label Content="Outbound"
                            Width="75" />
-                    <DatePicker SelectedDate="{Binding OutboundDate}" />
+                    <DatePicker SelectedDate="{Binding OutboundDate}" 
+                                ToolTip="Дата рейса"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             Grid.Row="1"
@@ -60,14 +64,16 @@
                     <Label Content="Flight number"
                            Width="90" />
                     <TextBox Text="{Binding FlightNumber}"
-                             Width="130" />
+                             Width="130" 
+                             ToolTip="Время рейса"/>
                 </StackPanel>
                 <Button Content="Apply"
                         Width="200"
                         HorizontalAlignment="Right"
                         Grid.Row="1"
                         Grid.Column="2"
-                        Command="{Binding FilterSchedulesCommand}" />
+                        Command="{Binding FilterSchedulesCommand}" 
+                        ToolTip="Применить фильтры к списку рейсов"/>
             </Grid>
         </GroupBox>
         <DataGrid ItemsSource="{Binding Schedules}"
@@ -114,7 +120,8 @@
               Height="75">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top">
-                <Button Command="{Binding ToggleFlightCommand}">
+                <Button Command="{Binding ToggleFlightCommand}"
+                        ToolTip="Переключить статус рейса">
                     <Button.Style>
                         <Style TargetType="Button"
                                BasedOn="{StaticResource DangerButton}">
@@ -143,7 +150,8 @@
                     </Button.Style>
                 </Button>
                 <Button Content="✎ Edit Flight"
-                        Command="{Binding EditFlightCommand}" />
+                        Command="{Binding EditFlightCommand}" 
+                        ToolTip="Изменить информацию о рейсе"/>
             </StackPanel>
             <Button Command="{Binding GoToImportChangesCommand}"
                     VerticalAlignment="Top"
@@ -163,7 +171,8 @@
                            Margin="0"
                            Foreground="White"
                            VerticalAlignment="Center"
-                           Width="auto" />
+                           Width="auto" 
+                           ToolTip="Импортировать данные рейсов"/>
                 </StackPanel>
             </Button>
         </Grid>
