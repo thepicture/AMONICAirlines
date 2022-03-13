@@ -2,6 +2,7 @@
 using AMONICAirlinesDesktopApp_Session2.Services;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AMONICAirlinesDesktopApp_Session2.ViewModels
@@ -23,7 +24,9 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
             {
                 if (importFileCommand == null)
                 {
-                    importFileCommand = new Command(ImportFile);
+                    importFileCommand = new Command(
+                        ImportFileAsync,
+                        CanImportFileAsyncExecute);
                 }
 
                 return importFileCommand;
@@ -31,9 +34,20 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
         }
 
         /// <summary>
+        /// Определяет, можно ли импортировать файл с рейсами.
+        /// </summary>
+        /// <returns><see langword="true"/>, 
+        /// если можно импортировать 
+        /// файл с рейсами, иначе <see langword="false"/>.</returns>
+        private bool CanImportFileAsyncExecute(object arg)
+        {
+            return !IsBusy;
+        }
+
+        /// <summary>
         /// Импортирует файл с рейсами.
         /// </summary>
-        private void ImportFile(object commandParameter)
+        private async void ImportFileAsync(object commandParameter)
         {
             IOpenFileDialog dialog = DependencyService
                 .Get<IOpenFileDialog>();
@@ -42,7 +56,13 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
                 if (dialog.ShowDialog())
                 {
                     ImportPath = dialog.Path;
-                    if (ScheduleImporter.Import(dialog.Path))
+                    IsBusy = true;
+                    bool isImported = await Task.Run(() =>
+                    {
+                        return ScheduleImporter.Import(dialog.Path);
+                    });
+                    IsBusy = false;
+                    if (isImported)
                     {
                         FeedbackService.Inform("Данные импортированы");
                         (App
