@@ -23,7 +23,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Width="auto"
+            <TextBox Text="{Binding ImportPath, TargetNullValue=Здесь будет отображаться путь импортированного файла...}"
+                     Foreground="Gray"
+                     IsReadOnly="True"
+                     Width="auto"
                      ToolTip="Импортировать файл с рейсами">
                 <TextBox.InputBindings>
                     <MouseBinding Gesture="LeftClick"

@@ -8,6 +8,7 @@ namespace AMONICAirlinesDesktopApp_Session2.Services
 
         public bool ShowDialog()
         {
+            Path = null;
             OpenFileDialog dialog = new OpenFileDialog();
             bool? result = dialog.ShowDialog();
             if (result != null

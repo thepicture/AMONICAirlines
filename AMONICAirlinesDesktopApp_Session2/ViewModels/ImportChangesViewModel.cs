@@ -41,6 +41,7 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
             {
                 if (dialog.ShowDialog())
                 {
+                    ImportPath = dialog.Path;
                     if (ScheduleImporter.Import(dialog.Path))
                     {
                         FeedbackService.Inform("Данные импортированы");
@@ -58,6 +59,7 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
                 }
                 else
                 {
+                    ImportPath = null;
                     FeedbackService.Inform("Операция была отменена");
                 }
             }
@@ -68,6 +70,14 @@ namespace AMONICAirlinesDesktopApp_Session2.ViewModels
                     "импортировать данные. " +
                     "Вероятно, файл поверждён");
             }
+        }
+
+        private string importPath;
+
+        public string ImportPath
+        {
+            get => importPath;
+            set => SetProperty(ref importPath, value);
         }
     }
 }
