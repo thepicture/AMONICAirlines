@@ -15,7 +15,7 @@ namespace AMONICAirlinesDesktopApp_Session2
             DependencyService.Register<MessageBoxFeedbackService>();
             DependencyService.Register<WindowService>();
 
-            DependencyService.Register<CsvScheduleImporter>();
+            DependencyService.Register<SimpleScheduleImporter>();
             DependencyService.Register<SimpleOpenFileDialog>();
 
             DependencyService.Get<IWindowService>()

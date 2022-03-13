@@ -5,10 +5,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AMONICAirlinesDesktopApp_Session2.Services
 {
-    public class CsvScheduleImporter
+    public class SimpleScheduleImporter
         : IScheduleImporter, INotifyPropertyChanged
     {
         private int successfulChangesCount;
@@ -63,6 +64,38 @@ namespace AMONICAirlinesDesktopApp_Session2.Services
             {
                 return false;
             }
+
+            bool isExcel = false;
+
+            var fileInfo = new FileInfo(filePath);
+            if (fileInfo.Extension.Contains("xlsx"))
+            {
+                isExcel = true;
+                Excel.Application app = null;
+                Excel.Workbook workbook = null;
+                try
+                {
+                    app = new Excel.Application();
+                    workbook = app.Workbooks
+                        .Open(filePath);
+                    string excelFilePath = fileInfo.FullName.Replace(".xlsx", ".csv");
+                    filePath = excelFilePath;
+                    workbook
+                        .SaveAs(
+                        excelFilePath,
+                        Excel.XlFileFormat.xlCSV);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.StackTrace);
+                }
+                finally
+                {
+                    workbook?.Close(false);
+                    app?.Quit();
+                }
+            }
+
             List<string[]> performedLines = new List<string[]>();
             string[] lines = File.ReadAllLines(filePath);
             foreach (string line in lines)
@@ -193,6 +226,15 @@ namespace AMONICAirlinesDesktopApp_Session2.Services
                         break;
                 }
                 SuccessfulChangesCount++;
+            }
+            if (isExcel)
+            {
+                if (File.Exists(
+                    filePath
+                    ))
+                {
+                    File.Delete(filePath);
+                }
             }
             return true;
         }
