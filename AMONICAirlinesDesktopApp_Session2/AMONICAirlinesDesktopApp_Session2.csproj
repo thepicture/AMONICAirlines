@@ -109,10 +109,14 @@
     <Compile Include="Models\Entities\User.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\CsvScheduleImporter.cs" />
     <Compile Include="Services\DependencyService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
+    <Compile Include="Services\IOpenFileDialog.cs" />
+    <Compile Include="Services\IScheduleImporter.cs" />
     <Compile Include="Services\IWindowService.cs" />
     <Compile Include="Services\MessageBoxFeedbackService.cs" />
+    <Compile Include="Services\SimpleOpenFileDialog.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FlightScheduleViewModel.cs" />

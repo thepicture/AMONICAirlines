@@ -9,9 +9,6 @@
 
 namespace AMONICAirlinesDesktopApp_Session2.Models.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Schedule
     {
         public int ID { get; set; }
@@ -22,7 +19,7 @@ namespace AMONICAirlinesDesktopApp_Session2.Models.Entities
         public decimal EconomyPrice { get; set; }
         public bool Confirmed { get; set; }
         public string FlightNumber { get; set; }
-    
+
         public virtual Aircraft Aircraft { get; set; }
         public virtual Route Route { get; set; }
     }

@@ -23,8 +23,14 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Width="auto" />
-            <Button Grid.Column="1">
+            <TextBox Width="auto">
+                <TextBox.InputBindings>
+                    <MouseBinding Gesture="LeftClick"
+                                  Command="{Binding ImportFileCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Grid.Column="1"
+                    Command="{Binding ImportFileCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Grid>
                         <Ellipse Width="20"
@@ -50,19 +56,19 @@
                 <UniformGrid Columns="2">
                     <Label Content="Successful Changes Applied:"
                            Width="auto" />
-                    <Label Content="[xxxx]"
+                    <Label Content="{Binding ScheduleImporter.SuccessfulChangesCount}"
                            Grid.Column="1" />
                 </UniformGrid>
                 <UniformGrid Columns="2">
                     <Label Content="Duplicate Records Discarded:"
                            Width="auto" />
-                    <Label Content="[xxxx]"
+                    <Label Content="{Binding ScheduleImporter.DuplicateRecordsCount}"
                            Grid.Column="1" />
                 </UniformGrid>
                 <UniformGrid Columns="2">
                     <Label Content="Record with missing fields discarded:"
                            Width="auto" />
-                    <Label Content="[xxxx]"
+                    <Label Content="{Binding ScheduleImporter.RecordsWithMissingFieldsCount}"
                            Grid.Column="1" />
                 </UniformGrid>
             </StackPanel>

@@ -14,6 +14,10 @@ namespace AMONICAirlinesDesktopApp_Session2
             base.OnStartup(e);
             DependencyService.Register<MessageBoxFeedbackService>();
             DependencyService.Register<WindowService>();
+
+            DependencyService.Register<CsvScheduleImporter>();
+            DependencyService.Register<SimpleOpenFileDialog>();
+
             DependencyService.Get<IWindowService>()
                 .ShowWindow<FlightScheduleViewModel>();
         }
