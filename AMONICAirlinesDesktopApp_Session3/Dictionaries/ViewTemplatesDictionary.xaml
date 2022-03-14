@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewmodels="clr-namespace:AMONICAirlinesDesktopApp_Session3.ViewModels"
+                    xmlns:views="clr-namespace:AMONICAirlinesDesktopApp_Session3.Views">
+    <DataTemplate DataType="{x:Type viewmodels:SearchForFlightsViewModel}">
+        <views:SearchForFlightsView />
+    </DataTemplate>
+</ResourceDictionary>
