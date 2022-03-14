@@ -15,7 +15,7 @@
         <Setter Property="Icon"
                 Value="pack://application:,,,/Resources/DS2017_TP09_color.png" />
         <Setter Property="MinWidth"
-                Value="900" />
+                Value="980" />
         <Setter Property="MinHeight"
                 Value="550" />
         <Setter Property="FontFamily"
@@ -36,6 +36,11 @@
                 Value="Center" />
     </Style>
     <Style TargetType="TextBox"
+           BasedOn="{StaticResource {x:Type FrameworkElement}}">
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+    <Style TargetType="CheckBox"
            BasedOn="{StaticResource {x:Type FrameworkElement}}">
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
