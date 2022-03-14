@@ -1,8 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:AMONICAirlinesDesktopApp_Session3.Converters">
     <FontFamily x:Key="BaseFont">./../Fonts/#TeXGyreAdventor</FontFamily>
     <SolidColorBrush x:Key="BaseColorOne">#196aa6</SolidColorBrush>
     <SolidColorBrush x:Key="BaseColorTwo">#f79420</SolidColorBrush>
+    <converters:FlightPriceMultiValueConverter x:Key="FlightPriceMultiValueConverter"/>
+
     <Style TargetType="FrameworkElement">
         <Setter Property="Width"
                 Value="200" />
