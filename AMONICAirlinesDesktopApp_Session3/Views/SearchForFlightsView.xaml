@@ -85,7 +85,7 @@
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource FlightPriceMultiValueConverter}"
                                       StringFormat="${0:F0}">
-                            <Binding Path="EconomyPrice" />
+                            <Binding Path="." />
                             <Binding Path="DataContext.CurrentCabinType"
                                      RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
                         </MultiBinding>
@@ -125,7 +125,7 @@
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource FlightPriceMultiValueConverter}"
                                       StringFormat="${0:F0}">
-                            <Binding Path="EconomyPrice" />
+                            <Binding Path="." />
                             <Binding Path="DataContext.CurrentCabinType"
                                      RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" />
                         </MultiBinding>

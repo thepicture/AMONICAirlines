@@ -16,7 +16,7 @@ namespace AMONICAirlinesDesktopApp_Session3.Converters
             {
                 return null;
             }
-            if (!(values[0] is decimal economyPrice))
+            if (!(values[0] is Schedules schedule))
             {
                 return 0;
             }
@@ -26,16 +26,13 @@ namespace AMONICAirlinesDesktopApp_Session3.Converters
             }
             switch (cabinType.Name)
             {
-                case "Economy":
-                    return economyPrice;
                 case "Business":
-                    return economyPrice * (decimal)1.35;
+                    return schedule.BusinessPrice;
                 case "First Class":
-                    return economyPrice
-                           * (decimal)1.35
-                           * (decimal)1.30;
+                    return schedule.FirstClassPrice;
+                case "Economy":
                 default:
-                    return economyPrice;
+                    return schedule.EconomyPrice;
             }
         }
 

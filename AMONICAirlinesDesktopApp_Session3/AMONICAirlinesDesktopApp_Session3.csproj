@@ -99,6 +99,7 @@
     <Compile Include="Models\Entities\Offices.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\PartialSchedule.cs" />
     <Compile Include="Models\Entities\Roles.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
