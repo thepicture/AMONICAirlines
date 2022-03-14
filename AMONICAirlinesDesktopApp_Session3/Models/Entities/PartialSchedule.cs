@@ -91,7 +91,7 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.Entities
                         }
                     }
                 }
-                throw new Exception("Route does not exist");
+                return -1;
             }
         }
 

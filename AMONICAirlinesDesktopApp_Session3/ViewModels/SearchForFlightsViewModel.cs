@@ -1,4 +1,5 @@
 ﻿using AMONICAirlinesDesktopApp_Session3.Commands;
+using AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels;
 using AMONICAirlinesDesktopApp_Session3.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,10 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                     return context.Airports.ToList();
                 }
             }).Result;
-            FromAirport = Airports.First(a => a.IATACode == "DOH");
-            ToAirport = Airports.First(a => a.IATACode == "BAH");
-            OutboundDate = DateTime.Parse("2017/10/6");
-            ReturnDate = DateTime.Parse("2017/10/27");
+            FromAirport = Airports.First(a => a.IATACode == "ADE");
+            ToAirport = Airports.First(a => a.IATACode == "CAI");
+            OutboundDate = DateTime.Parse("2017/10/25");
+            ReturnDate = DateTime.Parse("2017/10/26");
 
             CabinTypesEnumerable = Task.Run(() =>
             {
@@ -255,7 +256,10 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 else
                 {
                     currentFlights = currentFlights
-                     .Where(f => f.Date == OutboundDate)
+                     .Where(f =>
+                     {
+                         return f.Date == OutboundDate;
+                     })
                      .ToList();
                 }
                 OutboundFlights = currentFlights;
@@ -292,7 +296,10 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 else
                 {
                     currentFlights = currentFlights
-                   .Where(f => f.Date == ReturnDate)
+                   .Where(f =>
+                   {
+                       return f.Date == ReturnDate;
+                   })
                    .ToList();
                 }
                 ReturnFlights = currentFlights;

@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMONICAirlinesDesktopApp_Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMONICAirlinesDesktopApp_Session3", "AMONICAirlinesDesktopApp_Session3\AMONICAirlinesDesktopApp_Session3.csproj", "{E4C8C061-F0EF-44FD-B002-394EBDFF327E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMONICAirlinesDesktopApp_Session3Tests", "AMONICAirlinesDesktopApp_Session3Tests\AMONICAirlinesDesktopApp_Session3Tests.csproj", "{616EB5D0-C2AD-4321-9455-83DA64CB7AB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{E4C8C061-F0EF-44FD-B002-394EBDFF327E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4C8C061-F0EF-44FD-B002-394EBDFF327E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4C8C061-F0EF-44FD-B002-394EBDFF327E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616EB5D0-C2AD-4321-9455-83DA64CB7AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616EB5D0-C2AD-4321-9455-83DA64CB7AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616EB5D0-C2AD-4321-9455-83DA64CB7AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616EB5D0-C2AD-4321-9455-83DA64CB7AB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
