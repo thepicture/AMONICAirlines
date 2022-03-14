@@ -21,9 +21,9 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                     return context.Airports.ToList();
                 }
             }).Result;
-            FromAirport = Airports.First(a => a.IATACode == "CAI");
-            ToAirport = Airports.First(a => a.IATACode == "AUH");
-            OutboundDate = DateTime.Parse("2017/10/22");
+            FromAirport = Airports.First(a => a.IATACode == "DOH");
+            ToAirport = Airports.First(a => a.IATACode == "BAH");
+            OutboundDate = DateTime.Parse("2017/10/6");
             ReturnDate = DateTime.Parse("2017/10/27");
 
             CabinTypesEnumerable = Task.Run(() =>
@@ -251,7 +251,8 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                                 .Days) <= 3;
                         })
                         .ToList();
-                } else
+                }
+                else
                 {
                     currentFlights = currentFlights
                      .Where(f => f.Date == OutboundDate)
@@ -287,7 +288,8 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                                 .Days) <= 3;
                         })
                         .ToList();
-                } else
+                }
+                else
                 {
                     currentFlights = currentFlights
                    .Where(f => f.Date == ReturnDate)

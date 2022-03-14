@@ -69,6 +69,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\FlightPriceMultiValueConverter.cs" />
+    <Compile Include="Models\DistanceFinderModels\Node.cs" />
     <Compile Include="Models\Entities\Aircrafts.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>

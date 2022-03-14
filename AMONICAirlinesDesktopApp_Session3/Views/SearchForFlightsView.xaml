@@ -80,7 +80,7 @@
                 <DataGridTextColumn Header="Time"
                                     Binding="{Binding Time, StringFormat={}{0:hh}:{0:mm}}" />
                 <DataGridTextColumn Header="Flight Number(s)"
-                                    Binding="{Binding FlightNumber}" />
+                                    Binding="{Binding FlightNumbers}" />
                 <DataGridTextColumn Header="Cabin Price">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource FlightPriceMultiValueConverter}"
@@ -92,7 +92,7 @@
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Number of stops"
-                                    Binding="{Binding Stub, FallbackValue=0}" />
+                                    Binding="{Binding NumberOfStops}" />
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Return flight details:"
@@ -120,7 +120,7 @@
                 <DataGridTextColumn Header="Time"
                                     Binding="{Binding Time, StringFormat={}{0:hh}:{0:mm}}" />
                 <DataGridTextColumn Header="Flight Number(s)"
-                                    Binding="{Binding FlightNumber}" />
+                                    Binding="{Binding FlightNumbers}" />
                 <DataGridTextColumn Header="Cabin Price">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource FlightPriceMultiValueConverter}"
@@ -132,7 +132,7 @@
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Number of stops"
-                                    Binding="{Binding Stub, FallbackValue=0}" />
+                                    Binding="{Binding NumberOfStops}" />
             </DataGrid.Columns>
         </DataGrid>
         <GroupBox Header="Confirm booking for"
