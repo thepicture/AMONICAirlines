@@ -71,6 +71,7 @@
     <Compile Include="Converters\FlightPriceMultiValueConverter.cs" />
     <Compile Include="Models\DistanceFinderModels\IDistanceFinder.cs" />
     <Compile Include="Models\DistanceFinderModels\Node.cs" />
+    <Compile Include="Models\DistanceFinderModels\RouteNode.cs" />
     <Compile Include="Models\DistanceFinderModels\ScheduleDistanceFinder.cs" />
     <Compile Include="Models\Entities\Aircrafts.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
@@ -118,6 +119,7 @@
     <Compile Include="Models\Entities\Users.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DistanceFinderModels\ScheduleNode.cs" />
     <Compile Include="Services\DependencyService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
     <Compile Include="Services\IWindowService.cs" />

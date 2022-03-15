@@ -9,86 +9,115 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels
     public class ScheduleDistanceFinder
         : IDistanceFinder<string>
     {
-        public int GetNumberOfStops_(Schedules schedule1,
-                                    Schedules schedule2)
+        public int GetNumberOfStops(string IATACode1,
+                                    string IATACode2,
+                                    DateTime fromDate)
         {
-            int numberOfStops = 0;
-            IList<Node<Schedules>> unvisitedSet =
-                new List<Node<Schedules>>();
-            using (SessionThreeEntities context =
-                new SessionThreeEntities())
+            flightNumbers.Clear();
+            IList<ScheduleNode> nodes = new List<ScheduleNode>();
+            using (SessionThreeEntities context = new SessionThreeEntities())
             {
-                foreach (Schedules node
-                    in context.Schedules
+                nodes = context
+                    .Schedules
                     .Include(s => s.Routes)
                     .Include(s => s.Routes.Airports)
-                    .Include(s => s.Routes.Airports1))
-                {
-                    unvisitedSet
-                        .Add(new Node<Schedules>
-                        {
-                            Vertex = node,
-                            TentativeDistance = schedule1.ID == node.ID
-                            ? 0
-                            : int.MaxValue,
-                        });
-                }
+                    .Include(s => s.Routes.Airports1)
+                    .Where(s => s.Date >= fromDate)
+                    .OrderBy(s => s.Date)
+                    .ToList()
+                    .ConvertAll(s => new ScheduleNode(s));
             }
-
-            var currentNode = unvisitedSet
-                .First(n => n.Vertex.ID == schedule1.ID);
-            while (unvisitedSet.Count != 0)
+            if (nodes.Count == 0)
             {
-                var neighbors = unvisitedSet.Where(n =>
+                return -1;
+            }
+            var currentNode = nodes
+                .FirstOrDefault(n =>
                 {
-                    return n.Vertex.Routes.DepartureAirportID
-                           == currentNode.Vertex.Routes.ArrivalAirportID;
+                    return n.Vertex.Date >= fromDate
+                    && n.Vertex.Routes.Airports.IATACode == IATACode1;
                 });
-                foreach (var neighbor in neighbors.ToList())
+            var visitedIATACodes = new List<string>();
+            if (currentNode == null)
+            {
+                return -1;
+            }
+            string currentNodeCachedFlightNumber = 
+                currentNode.Vertex.FlightNumber;
+            if (currentNode.Vertex.Routes.Airports.IATACode == IATACode1
+                && currentNode.Vertex.Routes.Airports1.IATACode == IATACode2)
+            {
+                flightNumbers.Add(currentNode.Vertex.FlightNumber);
+                return 0;
+            }
+            currentNode.TentativeDistance = 0;
+            while (nodes.Count != 0)
+            {
+                if (currentNode.Vertex.Routes.Airports1.IATACode
+                 == IATACode2)
                 {
+                    int numberOfFlights = 1;
+                    while (currentNode.Parent != null)
+                    {
+                        flightNumbers
+                            .Add(currentNode.Vertex.FlightNumber);
+                        numberOfFlights++;
+                        currentNode.Parent = currentNode.Parent.Parent;
+                    }
+                    if (flightNumbers.Count == 0)
+                    {
+                        flightNumbers.Add(currentNodeCachedFlightNumber);
+                        flightNumbers.Add(currentNode.Vertex.FlightNumber);
+                    }
+                    return numberOfFlights;
+                }
+                if (!nodes.Remove(currentNode))
+                {
+                    throw new Exception("Can't remove a node");
+                }
+                var neighbors = nodes.Where(n =>
+                {
+                    return n
+                    .Vertex
+                    .Routes
+                    .DepartureAirportID
+                           == currentNode
+                           .Vertex
+                           .Routes
+                           .ArrivalAirportID;
+                });
+                foreach (var neighbor in neighbors)
+                {
+                    if (visitedIATACodes
+                        .Contains(neighbor.Vertex.Routes.Airports.IATACode))
+                    {
+                        continue;
+                    }
+                    visitedIATACodes
+                        .Add(neighbor.Vertex.Routes.Airports.IATACode);
                     var newDistance = currentNode.TentativeDistance
                                       + neighbor.Vertex.Routes.Distance;
                     if (newDistance < neighbor.TentativeDistance)
                     {
                         neighbor.TentativeDistance = newDistance;
-                    }
-
-                    if (!unvisitedSet.Remove(currentNode))
-                    {
-                        throw new Exception("Cannot remove a route");
-                    }
-
-                    numberOfStops++;
-
-                    if (currentNode.Vertex.Routes.ArrivalAirportID
-                        == schedule2.Routes.DepartureAirportID)
-                    {
-                        return numberOfStops;
-                    }
-                    else
-                    {
-                        currentNode = unvisitedSet.First(n =>
-                        {
-                            return unvisitedSet
-                            .Min(_n => _n.TentativeDistance)
-                            == n.TentativeDistance;
-                        });
+                        neighbor.Parent = currentNode;
                     }
                 }
+                if (nodes.Count == 0)
+                {
+                    return -1;
+                }
+                currentNode = nodes.First(n1 =>
+                {
+                    return n1.TentativeDistance
+                           == nodes
+                           .Min(n2 => n2.TentativeDistance);
+                });
             }
             return -1;
         }
 
-        public int GetNumberOfStops(string IATACode1,
-                                    string IATACode2,
-                                    DateTime fromDate)
-        {
-            var nodes = new List<Node<Schedules>>();
-
-            return 0;
-        }
-
-        private readonly IEnumerable<string> flightNumbers =
+        private readonly IList<string> flightNumbers =
             new List<string>();
 
         public override string ToString()
@@ -97,7 +126,8 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels
             {
                 return "[]";
             }
-            return string.Join(" - ", flightNumbers);
+            return string.Join(" - ",
+                               flightNumbers.Select(f => $"[{f}]"));
         }
     }
 }

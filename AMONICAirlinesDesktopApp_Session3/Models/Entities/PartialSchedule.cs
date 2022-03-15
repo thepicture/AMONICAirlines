@@ -40,7 +40,7 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.Entities
                         .Include(r => r.Airports))
                     {
                         unvisitedSet
-                            .Add(new Node<Routes>
+                            .Add(new RouteNode
                             {
                                 Vertex = node,
                                 TentativeDistance = Routes.ID == node.ID

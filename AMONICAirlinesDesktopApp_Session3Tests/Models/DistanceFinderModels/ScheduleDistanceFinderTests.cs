@@ -114,7 +114,7 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels.Tests
         }
 
         [TestMethod()]
-        public void ToString_FromBahToDohFromYYYY2017MM10dd04_Returns50And75()
+        public void ToString_FromBahToDohFromYYYY2017MM10dd04_Returns50And89()
         {
             #region arrange
             string expected = "[50] - [89]";

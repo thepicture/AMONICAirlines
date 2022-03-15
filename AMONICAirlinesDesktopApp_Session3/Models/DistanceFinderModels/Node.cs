@@ -4,10 +4,10 @@
     /// Определяет узел для алгоритма Дейкстры.
     /// </summary>
     /// <typeparam name="T">Тип вершины.</typeparam>
-    public class Node<T>
+    public abstract class Node<T>
     {
         public T Vertex { get; set; }
         public int TentativeDistance { get; set; }
-        public T Parent { get; set; }
+        public Node<T> Parent { get; set; }
     }
 }
