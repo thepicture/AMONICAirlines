@@ -1,21 +1,26 @@
 ﻿using AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity;
-using System.Linq;
 
 namespace AMONICAirlinesDesktopApp_Session3.Models.Entities
 {
     public partial class Schedules : INotifyPropertyChanged
     {
         private string flightNumbers;
+        private IDistanceFinder<string> finder = new ScheduleDistanceFinder();
 
         public decimal BusinessPrice => EconomyPrice * (decimal)1.35;
         public decimal FirstClassPrice => BusinessPrice * (decimal)1.30;
         public string FlightNumbers
         {
-            get => flightNumbers;
+            get
+            {
+                finder.GetNumberOfStops(Routes.Airports.IATACode,
+                                        Routes.Airports1.IATACode,
+                                        DateTime.Parse("1970-01-01"));
+                return finder.ToString();
+            }
+
             set
             {
                 flightNumbers = value;
@@ -28,70 +33,9 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.Entities
         {
             get
             {
-                IList<string> flightNumbers = new List<string>();
-                IList<Node<Routes>> unvisitedSet =
-                    new List<Node<Routes>>();
-                using (SessionThreeEntities context =
-                    new SessionThreeEntities())
-                {
-                    foreach (Routes node
-                        in context.Routes
-                        .Include(r => r.Airports1)
-                        .Include(r => r.Airports))
-                    {
-                        unvisitedSet
-                            .Add(new RouteNode
-                            {
-                                Vertex = node,
-                                TentativeDistance = Routes.ID == node.ID
-                                ? 0
-                                : int.MaxValue,
-                            });
-                    }
-                }
-
-                var currentNode = unvisitedSet
-                    .First(n => n.Vertex.ID == Routes.ID);
-                while (unvisitedSet.Count != 0)
-                {
-                    var neighbors = unvisitedSet.Where(n =>
-                    {
-                        return n.Vertex.DepartureAirportID
-                               == currentNode.Vertex.ArrivalAirportID;
-                    });
-                    foreach (var neighbor in neighbors.ToList())
-                    {
-                        var newDistance = currentNode.TentativeDistance
-                                          + neighbor.Vertex.Distance;
-                        if (newDistance < neighbor.TentativeDistance)
-                        {
-                            neighbor.TentativeDistance = newDistance;
-                        }
-
-                        if (!unvisitedSet.Remove(currentNode))
-                        {
-                            throw new Exception("Cannot remove a route");
-                        }
-
-                        flightNumbers.Add(currentNode.Vertex.Airports.IATACode);
-                        FlightNumbers = string.Join(" - ", flightNumbers);
-                        if (currentNode.Vertex.DepartureAirportID
-                            == Routes.ArrivalAirportID)
-                        {
-                            return flightNumbers.Count - 2;
-                        }
-                        else
-                        {
-                            currentNode = unvisitedSet.First(n =>
-                            {
-                                return unvisitedSet
-                                .Min(_n => _n.TentativeDistance)
-                                == n.TentativeDistance;
-                            });
-                        }
-                    }
-                }
-                return -1;
+                return finder.GetNumberOfStops(Routes.Airports.IATACode,
+                                               Routes.Airports1.IATACode,
+                                               DateTime.Parse("1970-01-01"));
             }
         }
 

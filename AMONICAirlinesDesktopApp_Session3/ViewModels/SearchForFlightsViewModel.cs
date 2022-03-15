@@ -238,7 +238,6 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                     .Include(s => s.Routes.Airports)
                     .Include(s => s.Routes.Airports1)
                     .Where(s => s.Routes.DepartureAirportID == FromAirport.ID)
-                    .Where(s => s.Routes.ArrivalAirportID == ToAirport.ID)
                     .ToList();
                 if (IsOutboundThreeDaysBeforeAndAfter.HasValue
                     && IsOutboundThreeDaysBeforeAndAfter.Value)
