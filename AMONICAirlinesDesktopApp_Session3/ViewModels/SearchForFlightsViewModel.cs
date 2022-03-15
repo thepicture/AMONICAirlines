@@ -174,8 +174,8 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 return false;
             }
             if (currentReturnFlight == null
-                && IsReturnType.HasValue
-                && !IsReturnType.Value)
+                && IsReturnType != null 
+                && (bool)IsReturnType)
             {
                 return false;
             }
