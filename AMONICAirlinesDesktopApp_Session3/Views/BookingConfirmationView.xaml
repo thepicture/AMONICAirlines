@@ -23,17 +23,17 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="From:"
                        Width="auto" />
-                <Label Content="{Binding Reservation.Outbound.From}"
+                <Label Content="{Binding Reservation.Outbound.Routes.Airports.IATACode}"
                        Width="auto"
                        FontWeight="Bold" />
                 <Label Content="To:"
                        Width="auto" />
-                <Label Content="{Binding Reservation.Outbound.To}"
+                <Label Content="{Binding Reservation.Outbound.Routes.Airports.IATACode}"
                        Width="auto"
                        FontWeight="Bold" />
                 <Label Content="Cabin Type:"
                        Width="auto" />
-                <Label Content="{Binding Reservation.Outbound.CabinType.Name}"
+                <Label Content="{Binding Reservation.CabinType.Name}"
                        Width="auto"
                        FontWeight="Bold" />
                 <Label Content="Date:"
@@ -53,17 +53,17 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="From:"
                        Width="auto" />
-                <Label Content="{Binding Reservation.Return.From}"
+                <Label Content="{Binding Reservation.Return.Routes.Airports.IATACode}"
                        Width="auto"
                        FontWeight="Bold" />
                 <Label Content="To:"
                        Width="auto" />
-                <Label Content="{Binding Reservation.Return.To}"
+                <Label Content="{Binding Reservation.Return.Routes.Airports.IATACode}"
                        Width="auto"
                        FontWeight="Bold" />
                 <Label Content="Cabin Type:"
                        Width="auto" />
-                <Label Content="{Binding Reservation.Return.CabinType.Name}"
+                <Label Content="{Binding Reservation.CabinType.Name}"
                        Width="auto"
                        FontWeight="Bold" />
                 <Label Content="Date:"
@@ -85,26 +85,27 @@
                             HorizontalAlignment="Center">
                     <Label Content="Firstname"
                            Width="100" />
-                    <TextBox Text="{Binding FirstName}" />
+                    <TextBox Text="{Binding CurrentTicket.Firstname, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Content="Lastname"
                            Width="100" />
-                    <TextBox Text="{Binding LastName}" />
+                    <TextBox Text="{Binding CurrentTicket.Lastname, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Content="Birthdate"
                            Width="65" />
-                    <DatePicker SelectedDate="{Binding BirthDate}" />
+                    <DatePicker SelectedDate="{Binding CurrentTicket.Users.Birthdate, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Label Content="Passport number"
                            Width="100" />
-                    <TextBox Text="{Binding PassportNumber}" />
+                    <TextBox Text="{Binding CurrentTicket.PassportNumber, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Content="Passport country"
                            Width="100" />
                     <ComboBox ItemsSource="{Binding CountriesList}"
-                              SelectedItem="{Binding PassportCountry}" />
+                              SelectedItem="{Binding PassportCountry}"
+                              DisplayMemberPath="Name" />
                     <Label Content="Phone"
                            Width="65" />
-                    <TextBox Text="{Binding Phone}" />
+                    <TextBox Text="{Binding CurrentTicket.Phone, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
                 <Button Content="Add passenger"
                         HorizontalAlignment="Right"
@@ -116,7 +117,8 @@
                HorizontalAlignment="Left"
                Width="auto"
                Grid.Row="3" />
-        <DataGrid ItemsSource="{Binding PassengersList}"
+        <DataGrid ItemsSource="{Binding Reservation.Passengers}"
+                  SelectedItem="{Binding CurrentPassenger}"
                   ColumnWidth="*"
                   Grid.Row="4">
             <DataGrid.Columns>
@@ -135,6 +137,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Remove passenger"
+                Command="{Binding RemovePassengerCommand}"
                 Style="{StaticResource DangerButton}"
                 HorizontalAlignment="Right"
                 Grid.Row="5" />
@@ -142,8 +145,10 @@
                     Grid.Row="6"
                     HorizontalAlignment="Center">
             <Button Content="⟳ Back to search for flights"
+                    Command="{Binding BackToSearchCommand}"
                     Style="{StaticResource DangerButton}" />
-            <Button Content="✓ Confirm booking" />
+            <Button Content="✓ Confirm booking"
+                    Command="{Binding ConfirmBookingCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

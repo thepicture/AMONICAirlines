@@ -1,7 +1,9 @@
 ﻿using AMONICAirlinesDesktopApp_Session3.Commands;
 using AMONICAirlinesDesktopApp_Session3.Models.Entities;
+using AMONICAirlinesDesktopApp_Session3.Models.ReservationModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -189,7 +191,15 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
         /// </summary>
         private void BookFlight(object commandParameter)
         {
-            WindowService.ShowModalWindow<BookingConfirmationViewModel>();
+            var reservation = new Reservation
+            {
+                CabinType = CurrentCabinType,
+                Outbound = CurrentOutboundFlight,
+                Return = currentReturnFlight,
+                Passengers = new ObservableCollection<Tickets>(),
+            };
+            WindowService.ShowModalWindowWithParameter
+                <BookingConfirmationViewModel, Reservation>(reservation);
         }
 
         private Command exitCommand;

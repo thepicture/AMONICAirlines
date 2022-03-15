@@ -121,6 +121,7 @@
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DistanceFinderModels\ScheduleNode.cs" />
+    <Compile Include="Models\ReservationModels\Reservation.cs" />
     <Compile Include="Services\DependencyService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
     <Compile Include="Services\IWindowService.cs" />
