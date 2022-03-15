@@ -1,4 +1,6 @@
-﻿namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels
+﻿using System;
+
+namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels
 {
     /// <summary>
     /// Определяет метод для подсчёта числа 
@@ -13,7 +15,11 @@
         /// </summary>
         /// <param name="target1">Первая цель.</param>
         /// <param name="target2">Вторая цель.</param>
+        /// <param name="fromDate">Дата, начиная с которой 
+        /// просматривать рейсы.</param>
         /// <returns>Число остановок.</returns>
-        int GetNumberOfStops(TTarget target1, TTarget target2);
+        int GetNumberOfStops(TTarget target1,
+                             TTarget target2,
+                             DateTime fromDate);
     }
 }

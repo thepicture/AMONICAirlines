@@ -7,9 +7,9 @@ using System.Linq;
 namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels
 {
     public class ScheduleDistanceFinder
-        : IDistanceFinder<Schedules>
+        : IDistanceFinder<string>
     {
-        public int GetNumberOfStops(Schedules schedule1,
+        public int GetNumberOfStops_(Schedules schedule1,
                                     Schedules schedule2)
         {
             int numberOfStops = 0;
@@ -79,9 +79,25 @@ namespace AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels
             return -1;
         }
 
+        public int GetNumberOfStops(string IATACode1,
+                                    string IATACode2,
+                                    DateTime fromDate)
+        {
+            var nodes = new List<Node<Schedules>>();
+
+            return 0;
+        }
+
+        private readonly IEnumerable<string> flightNumbers =
+            new List<string>();
+
         public override string ToString()
         {
-            return base.ToString();
+            if (flightNumbers.Count() == 0)
+            {
+                return "[]";
+            }
+            return string.Join(" - ", flightNumbers);
         }
     }
 }
