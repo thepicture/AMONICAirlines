@@ -68,6 +68,8 @@
                   Grid.Row="1"
                   HorizontalAlignment="Right" />
         <DataGrid ItemsSource="{Binding OutboundFlights}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding CurrentOutboundFlight}"
                   ColumnWidth="*"
                   Grid.Row="2">
             <DataGrid.Columns>
@@ -107,6 +109,8 @@
                   Opacity="{Binding IsReturnType, TargetNullValue=0}"
                   IsHitTestVisible="{Binding IsReturnType, TargetNullValue=False}"/>
         <DataGrid ItemsSource="{Binding ReturnFlights}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding CurrentReturnFlight}"
                   ColumnWidth="*"
                   Opacity="{Binding IsReturnType, TargetNullValue=0}"
                   Grid.Row="4">
@@ -140,7 +144,7 @@
                   HorizontalAlignment="Center">
             <UniformGrid Columns="2">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="{Binding NumberOfPassengers}" />
+                    <TextBox Text="{Binding NumberOfPassengers, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Content="Passengers"
                            Width="auto" />
                 </StackPanel>
@@ -149,6 +153,7 @@
             </UniformGrid>
         </GroupBox>
         <Button Command="{Binding ExitCommand}"
+                Style="{StaticResource DangerButton}"
                 Content="☒Exit"
                 Grid.Row="5"
                 HorizontalAlignment="Right"

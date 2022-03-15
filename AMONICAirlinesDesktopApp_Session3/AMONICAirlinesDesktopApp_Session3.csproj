@@ -104,6 +104,7 @@
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\PartialSchedule.cs" />
+    <Compile Include="Models\Entities\PartialTicket.cs" />
     <Compile Include="Models\Entities\Roles.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
@@ -126,7 +127,11 @@
     <Compile Include="Services\MessageBoxFeedbackService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BookingConfirmationViewModel.cs" />
     <Compile Include="ViewModels\SearchForFlightsViewModel.cs" />
+    <Compile Include="Views\BookingConfirmationView.xaml.cs">
+      <DependentUpon>BookingConfirmationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SearchForFlightsView.xaml.cs">
       <DependentUpon>SearchForFlightsView.xaml</DependentUpon>
     </Compile>
@@ -180,6 +185,10 @@
     <Page Include="Dictionaries\ViewTemplatesDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BookingConfirmationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SearchForFlightsView.xaml">
       <SubType>Designer</SubType>

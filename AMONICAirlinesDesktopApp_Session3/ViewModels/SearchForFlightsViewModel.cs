@@ -1,5 +1,4 @@
 ﻿using AMONICAirlinesDesktopApp_Session3.Commands;
-using AMONICAirlinesDesktopApp_Session3.Models.DistanceFinderModels;
 using AMONICAirlinesDesktopApp_Session3.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -150,7 +149,8 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
             {
                 if (bookFlightCommand == null)
                 {
-                    bookFlightCommand = new Command(BookFlight);
+                    bookFlightCommand = new Command(BookFlight,
+                                                    CanBookFlightExecute);
                 }
 
                 return bookFlightCommand;
@@ -158,10 +158,38 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
         }
 
         /// <summary>
+        /// Определяет, может ли бронирование рейса совершиться.
+        /// </summary>
+        private bool CanBookFlightExecute(object arg)
+        {
+            if (string.IsNullOrWhiteSpace(NumberOfPassengers)
+                || !int.TryParse(NumberOfPassengers, out _))
+            {
+                return false;
+            }
+            if (currentOutboundFlight == null)
+            {
+                return false;
+            }
+            if (currentReturnFlight == null
+                && IsReturnType.HasValue
+                && !IsReturnType.Value)
+            {
+                return false;
+            }
+            if (OutboundDate >= ReturnDate)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Бронирует полёт.
         /// </summary>
         private void BookFlight(object commandParameter)
         {
+            WindowService.ShowModalWindow<BookingConfirmationViewModel>();
         }
 
         private Command exitCommand;
@@ -311,6 +339,22 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
         {
             get => outboundDate;
             set => SetProperty(ref outboundDate, value);
+        }
+
+        private Schedules currentOutboundFlight;
+
+        public Schedules CurrentOutboundFlight
+        {
+            get => currentOutboundFlight;
+            set => SetProperty(ref currentOutboundFlight, value);
+        }
+
+        private Schedules currentReturnFlight;
+
+        public Schedules CurrentReturnFlight
+        {
+            get => currentReturnFlight;
+            set => SetProperty(ref currentReturnFlight, value);
         }
     }
 }
