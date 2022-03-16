@@ -135,10 +135,13 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 }
                 FeedbackService.Inform("Резервирование " +
                     "успешно подтверждено");
-                foreach (Window ownedWindow
-                    in App.Current.MainWindow.OwnedWindows)
+                foreach (Window window
+                    in App.Current.Windows)
                 {
-                    ownedWindow.Close();
+                    if (!(window.DataContext is SearchForFlightsViewModel))
+                    {
+                        window.Close();
+                    }
                 }
             }
             catch (Exception ex)
