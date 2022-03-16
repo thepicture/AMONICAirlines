@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:AMONICAirlinesDesktopApp_Session3.Views"
-             xmlns:entities="clr-namespace:AMONICAirlinesDesktopApp_Session3.Models.Entities"
+             xmlns:entities="clr-namespace:AMONICAirlinesDesktopApp_Session3.ViewModels"
              d:DataContext="{d:DesignInstance Type=entities:BillingConfirmationViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -22,16 +22,21 @@
                    HorizontalContentAlignment="Left"
                    Width="auto" />
             <RadioButton GroupName="PaymentType"
-                         Content="Credit Card" />
+                         Content="Credit Card"
+                         ToolTip="Pay by a credit card"/>
             <RadioButton GroupName="PaymentType"
-                         Content="Cash" />
+                         Content="Cash"
+                         ToolTip="Pay by a cash"/>
             <RadioButton GroupName="PaymentType"
-                         Content="Voucher" />
+                         Content="Voucher"
+                         ToolTip="Pay by a voucher"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Content="☑Issue tickets" />
+            <Button Content="☑Issue tickets" 
+                    ToolTip="Issue tickets and confirm the billing"/>
             <Button Content="☒Cancel"
-                    Style="{StaticResource DangerButton}" />
+                    Style="{StaticResource DangerButton}" 
+                    ToolTip="Cancel the billing"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

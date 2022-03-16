@@ -26,35 +26,43 @@
                            Width="auto" />
                     <ComboBox ItemsSource="{Binding Airports}"
                               SelectedItem="{Binding FromAirport}"
-                              DisplayMemberPath="IATACode" />
+                              DisplayMemberPath="IATACode"
+                              ToolTip="From which airport you need a flight" />
                     <Label Content="To"
                            Width="auto" />
                     <ComboBox ItemsSource="{Binding Airports}"
                               SelectedItem="{Binding ToAirport}"
-                              DisplayMemberPath="IATACode" />
+                              DisplayMemberPath="IATACode"
+                              ToolTip="To which airport you need a flight" />
                     <Label Content="Cabin Type"
                            Width="auto" />
                     <ComboBox ItemsSource="{Binding CabinTypesEnumerable}"
                               SelectedItem="{Binding CurrentCabinType}"
-                              DisplayMemberPath="Name" />
+                              DisplayMemberPath="Name"
+                              ToolTip="Select a cabin type to determine a price of the flight" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <RadioButton GroupName="FlightType"
                                  Content="Return"
                                  Width="auto"
-                                 IsChecked="{Binding IsReturnType, TargetNullValue=False}" />
+                                 IsChecked="{Binding IsReturnType, TargetNullValue=False}"
+                                 ToolTip="You want a flight from department airport to the arrival airport and counterwise" />
                     <RadioButton GroupName="FlightType"
                                  Content="One way"
                                  Width="auto"
-                                 IsChecked="{Binding IsOnewayType, TargetNullValue=False}" />
+                                 IsChecked="{Binding IsOnewayType, TargetNullValue=False}"
+                                 ToolTip="You want only a flight from the department airport to the arrival airport" />
                     <Label Content="➦Outbound"
                            Width="auto" />
-                    <DatePicker SelectedDate="{Binding OutboundDate}" />
+                    <DatePicker SelectedDate="{Binding OutboundDate}"
+                                ToolTip="Date on which you want a flight" />
                     <Label Content="🠗Return"
                            Width="auto" />
-                    <DatePicker SelectedDate="{Binding ReturnDate}" />
+                    <DatePicker SelectedDate="{Binding ReturnDate}"
+                                ToolTip="Date on which you want a return (can be empty)" />
                     <Button Content="🔍Apply"
-                            Command="{Binding ApplyCommand}" />
+                            Command="{Binding ApplyCommand}"
+                            ToolTip="Apply the filters" />
                 </StackPanel>
             </UniformGrid>
         </GroupBox>
@@ -66,7 +74,8 @@
                   IsChecked="{Binding IsOutboundThreeDaysBeforeAndAfter, TargetNullValue=False}"
                   Width="auto"
                   Grid.Row="1"
-                  HorizontalAlignment="Right" />
+                  HorizontalAlignment="Right"
+                  ToolTip="Outbound flights will be in the interval from 3 days before and 3 days after the date you have selected" />
         <DataGrid ItemsSource="{Binding OutboundFlights}"
                   SelectionMode="Single"
                   SelectedItem="{Binding CurrentOutboundFlight}"
@@ -107,7 +116,8 @@
                   HorizontalAlignment="Right"
                   IsChecked="{Binding IsReturnThreeDaysBeforeAndAfter, TargetNullValue=False}"
                   Opacity="{Binding IsReturnType, TargetNullValue=0}"
-                  IsHitTestVisible="{Binding IsReturnType, TargetNullValue=False}"/>
+                  IsHitTestVisible="{Binding IsReturnType, TargetNullValue=False}"
+                  ToolTip="Return flights will be in the interval from 3 days before and 3 days after the date you have selected" />
         <DataGrid ItemsSource="{Binding ReturnFlights}"
                   SelectionMode="Single"
                   SelectedItem="{Binding CurrentReturnFlight}"
@@ -144,12 +154,14 @@
                   HorizontalAlignment="Center">
             <UniformGrid Columns="2">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="{Binding NumberOfPassengers, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding NumberOfPassengers, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Enter the number of passengers of the flight" />
                     <Label Content="Passengers"
                            Width="auto" />
                 </StackPanel>
                 <Button Content="✓ Book Flight"
-                        Command="{Binding BookFlightCommand}" />
+                        Command="{Binding BookFlightCommand}"
+                        ToolTip="Start to reserve the selected flight(s)"/>
             </UniformGrid>
         </GroupBox>
         <Button Command="{Binding ExitCommand}"
@@ -158,6 +170,7 @@
                 Grid.Row="5"
                 HorizontalAlignment="Right"
                 Width="75"
-                Margin="5 15 40 5" />
+                Margin="5 15 40 5" 
+                ToolTip="Exit the current app"/>
     </Grid>
 </UserControl>

@@ -97,32 +97,39 @@
                             HorizontalAlignment="Center">
                     <Label Content="Firstname"
                            Width="100" />
-                    <TextBox Text="{Binding CurrentTicket.Firstname, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding CurrentTicket.Firstname, UpdateSourceTrigger=PropertyChanged}" 
+                             ToolTip="A passenger's first name up to 50 symbols"/>
                     <Label Content="Lastname"
                            Width="100" />
-                    <TextBox Text="{Binding CurrentTicket.Lastname, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding CurrentTicket.Lastname, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="A passenger's last name up to 50 symbols"/>
                     <Label Content="Birthdate"
                            Width="65" />
-                    <DatePicker SelectedDate="{Binding CurrentTicket.Users.Birthdate, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker SelectedDate="{Binding CurrentTicket.Users.Birthdate, UpdateSourceTrigger=PropertyChanged}" 
+                                ToolTip="A passenger's birthdate"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Label Content="Passport number"
                            Width="100" />
-                    <TextBox Text="{Binding CurrentTicket.PassportNumber, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding CurrentTicket.PassportNumber, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="A passenger's passport number"/>
                     <Label Content="Passport country"
                            Width="100" />
                     <ComboBox ItemsSource="{Binding CountriesList}"
                               SelectedItem="{Binding PassportCountry}"
-                              DisplayMemberPath="Name" />
+                              DisplayMemberPath="Name" 
+                              ToolTip="A passenger's passport country"/>
                     <Label Content="Phone"
                            Width="65" />
-                    <TextBox Text="{Binding CurrentTicket.Phone, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding CurrentTicket.Phone, UpdateSourceTrigger=PropertyChanged}" 
+                             ToolTip="A passenger's phone"/>
                 </StackPanel>
                 <Button Content="Add passenger"
                         HorizontalAlignment="Right"
                         Width="190"
-                        Command="{Binding AddPassengerCommand}" />
+                        Command="{Binding AddPassengerCommand}"
+                        ToolTip="Add the passenger to the current reservation"/>
             </StackPanel>
         </GroupBox>
         <Label Content="Passengers list"
@@ -132,7 +139,8 @@
         <DataGrid ItemsSource="{Binding Reservation.Passengers}"
                   SelectedItem="{Binding CurrentPassenger}"
                   ColumnWidth="*"
-                  Grid.Row="4">
+                  Grid.Row="4"
+                  ToolTip="List of the passengers of the current reservation">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Firstname"
                                     Binding="{Binding Firstname}" />
@@ -152,15 +160,18 @@
                 Command="{Binding RemovePassengerCommand}"
                 Style="{StaticResource DangerButton}"
                 HorizontalAlignment="Right"
-                Grid.Row="5" />
+                Grid.Row="5" 
+                ToolTip="Removes the selected passenger's in the list from the current reservation."/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="6"
                     HorizontalAlignment="Center">
             <Button Content="⟳ Back to search for flights"
                     Command="{Binding BackToSearchCommand}"
-                    Style="{StaticResource DangerButton}" />
+                    Style="{StaticResource DangerButton}"
+                    ToolTip="Returns to the previous window to search flights"/>
             <Button Content="✓ Confirm booking"
-                    Command="{Binding ConfirmBookingCommand}" />
+                    Command="{Binding ConfirmBookingCommand}" 
+                    ToolTip="Confirms booking in the new window"/>
         </StackPanel>
     </Grid>
 </UserControl>
