@@ -195,7 +195,7 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
             {
                 CabinType = CurrentCabinType,
                 Outbound = CurrentOutboundFlight,
-                Return = currentReturnFlight,
+                Return = CurrentReturnFlight,
                 Passengers = new ObservableCollection<Tickets>(),
             };
             WindowService.ShowModalWindowWithParameter

@@ -50,6 +50,18 @@
         </GroupBox>
         <GroupBox Header="Return flight details"
                   Grid.Row="1">
+            <GroupBox.Style>
+                <Style TargetType="GroupBox"
+                       BasedOn="{StaticResource {x:Type GroupBox}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Reservation.Return}"
+                                     Value="{x:Null}">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </GroupBox.Style>
             <StackPanel Orientation="Horizontal">
                 <Label Content="From:"
                        Width="auto" />
@@ -148,7 +160,7 @@
                     Command="{Binding BackToSearchCommand}"
                     Style="{StaticResource DangerButton}" />
             <Button Content="✓ Confirm booking"
-                    Command="{Binding ConfirmBookingCommand}"/>
+                    Command="{Binding ConfirmBookingCommand}" />
         </StackPanel>
     </Grid>
 </UserControl>
