@@ -128,8 +128,12 @@
     <Compile Include="Services\MessageBoxFeedbackService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BillingConfirmationViewModel.cs" />
     <Compile Include="ViewModels\BookingConfirmationViewModel.cs" />
     <Compile Include="ViewModels\SearchForFlightsViewModel.cs" />
+    <Compile Include="Views\BillingConfirmationView.xaml.cs">
+      <DependentUpon>BillingConfirmationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookingConfirmationView.xaml.cs">
       <DependentUpon>BookingConfirmationView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +190,10 @@
     <Page Include="Dictionaries\ViewTemplatesDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BillingConfirmationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BookingConfirmationView.xaml">
       <SubType>Designer</SubType>

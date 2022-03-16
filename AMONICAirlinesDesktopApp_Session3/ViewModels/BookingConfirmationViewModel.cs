@@ -134,7 +134,7 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
             CurrentTicket.BookingReference =
                 $"{firstPartOfReference}" +
                 $"{secondPartOfReference}";
-            CurrentTicket.Confirmed = true;
+            CurrentTicket.Confirmed = false;
             Reservation.Passengers.Add(CurrentTicket);
             CurrentTicket = new Tickets
             {
@@ -233,7 +233,9 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                     _ = context.SaveChanges();
                 }
                 CloseAction();
-                FeedbackService.Inform("Вы успешно забронировали билет");
+                WindowService.ShowModalWindowWithParameter
+                    <BillingConfirmationViewModel, Reservation>
+                    (Reservation);
             }
             catch (Exception ex)
             {

@@ -8,4 +8,7 @@
     <DataTemplate DataType="{x:Type viewmodels:BookingConfirmationViewModel}">
         <views:BookingConfirmationView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:BillingConfirmationViewModel}">
+        <views:BillingConfirmationView />
+    </DataTemplate>
 </ResourceDictionary>
