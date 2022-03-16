@@ -226,13 +226,21 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 using (SessionThreeEntities context =
                     new SessionThreeEntities())
                 {
-                    Reservation
-                        .Passengers
-                        .ToList()
-                        .ForEach(t => context.Tickets.Add(t));
-                    _ = context.SaveChanges();
+                    if (Reservation
+                      .Passengers
+                      .ToList()
+                      .All(t =>
+                      {
+                          return context.Tickets.Find(t.ID) == null;
+                      }))
+                    {
+                        Reservation
+                            .Passengers
+                            .ToList()
+                            .ForEach(t => context.Tickets.Add(t));
+                        _ = context.SaveChanges();
+                    }
                 }
-                CloseAction();
                 WindowService.ShowModalWindowWithParameter
                     <BillingConfirmationViewModel, Reservation>
                     (Reservation);

@@ -15,6 +15,7 @@
             <Label Content="Total amount:"
                    Width="auto" />
             <Label Content="{Binding TotalAmount}"
+                   ContentStringFormat="${0:F0}"
                    Width="auto" />
         </StackPanel>
         <StackPanel>
@@ -23,18 +24,23 @@
                    Width="auto" />
             <RadioButton GroupName="PaymentType"
                          Content="Credit Card"
-                         ToolTip="Pay by a credit card"/>
+                         ToolTip="Pay by a credit card"
+                         IsChecked="{Binding CreditCardPaymentType}"/>
             <RadioButton GroupName="PaymentType"
                          Content="Cash"
-                         ToolTip="Pay by a cash"/>
+                         ToolTip="Pay by a cash"
+                         IsChecked="{Binding CashPaymentType}"/>
             <RadioButton GroupName="PaymentType"
                          Content="Voucher"
-                         ToolTip="Pay by a voucher"/>
+                         ToolTip="Pay by a voucher"
+                         IsChecked="{Binding VoucherPaymentType}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Content="☑Issue tickets" 
+                    Command="{Binding IssueTicketsCommand}"
                     ToolTip="Issue tickets and confirm the billing"/>
             <Button Content="☒Cancel"
+                    Command="{Binding CancelCommand}"
                     Style="{StaticResource DangerButton}" 
                     ToolTip="Cancel the billing"/>
         </StackPanel>
