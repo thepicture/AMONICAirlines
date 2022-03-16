@@ -91,6 +91,12 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 return false;
             }
 
+            if (Reservation.MaxNumberOfPassengers
+                == Reservation.Passengers.Count)
+            {
+                return false;
+            }
+
             return true;
         }
 

@@ -135,7 +135,7 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
             set => SetProperty(ref outboundFlights, value);
         }
 
-        private string numberOfPassengers;
+        private string numberOfPassengers = "1";
 
         public string NumberOfPassengers
         {
@@ -174,7 +174,7 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 return false;
             }
             if (currentReturnFlight == null
-                && IsReturnType != null 
+                && IsReturnType != null
                 && (bool)IsReturnType)
             {
                 return false;
@@ -197,6 +197,7 @@ namespace AMONICAirlinesDesktopApp_Session3.ViewModels
                 Outbound = CurrentOutboundFlight,
                 Return = CurrentReturnFlight,
                 Passengers = new ObservableCollection<Tickets>(),
+                MaxNumberOfPassengers = int.Parse(NumberOfPassengers),
             };
             WindowService.ShowModalWindowWithParameter
                 <BookingConfirmationViewModel, Reservation>(reservation);

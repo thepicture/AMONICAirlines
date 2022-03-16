@@ -132,7 +132,8 @@
                         ToolTip="Add the passenger to the current reservation"/>
             </StackPanel>
         </GroupBox>
-        <Label Content="Passengers list"
+        <Label Content="{Binding Reservation.MaxNumberOfPassengers}"
+               ContentStringFormat="Passengers list (max number of passengers is {0})"
                HorizontalAlignment="Left"
                Width="auto"
                Grid.Row="3" />
